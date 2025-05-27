@@ -1,15 +1,60 @@
+<!-- src/routes/+layout.svelte -->
 <script lang="ts">
 	import '../app.css';
-	import Sidebar from '$lib/components/Sidebar.svelte';
+	import Sidebar from './Sidebar.svelte';
+	import { theme, availableThemes, themeColors, setTheme, getThemeDisplayName, getCurrentThemeInfo } from '$lib/stores/theme.js';
+	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 
 	let { children } = $props();
 	let isSidebarOpen = $state(false);
+	
+	// Svelte 5の$derivedを使用してリアクティブな値を定義
+	let themeInfo = $derived(getCurrentThemeInfo());
+	let currentTheme = $derived($theme);
+	
+	// テーマスイッチャーの表示状態
+	let themeDropdownOpen = $state(false);
+	let themeDropdownElement: HTMLElement | undefined;
+	
+	// 簡易テーマスイッチャー（ヘッダー用）
+	const quickThemes = ['light', 'dark', 'cupcake', 'synthwave', 'cyberpunk', 'forest'];
 	
 	// サイドバーの開閉
 	function toggleSidebar() {
 		isSidebarOpen = !isSidebarOpen;
 	}
+	
+	function setQuickTheme(themeName: string) {
+		setTheme(themeName);
+		themeDropdownOpen = false;
+	}
+	
+	// アウトサイドクリックでドロップダウンを閉じる
+	function handleOutsideClick(event: MouseEvent) {
+		if (themeDropdownElement && !themeDropdownElement.contains(event.target as Node)) {
+			themeDropdownOpen = false;
+		}
+	}
+	
+	onMount(() => {
+		if (browser) {
+			// テーマが正しく適用されているかチェック
+			const currentThemeValue = document.documentElement.getAttribute('data-theme');
+			console.log('Current theme applied:', currentThemeValue);
+			
+			// アウトサイドクリック監視
+			document.addEventListener('click', handleOutsideClick);
+			return () => {
+				document.removeEventListener('click', handleOutsideClick);
+			};
+		}
+	});
 </script>
+
+<svelte:head>
+	<meta name="theme-color" content={themeInfo.colors.primary} />
+</svelte:head>
 
 <div class="drawer lg:drawer-open">
 	<input id="drawer-toggle" type="checkbox" class="drawer-toggle" bind:checked={isSidebarOpen} />
@@ -39,6 +84,81 @@
 				<span class="text-base font-medium">管理画面</span>
 			</div>
 			<div class="flex-none flex items-center gap-3">
+				<!-- テーマスイッチャー -->
+				<div class="dropdown dropdown-end" bind:this={themeDropdownElement}>
+					<div 
+						role="button" 
+						tabindex="0" 
+						class="btn btn-ghost btn-sm gap-1"
+						class:bg-base-300={themeDropdownOpen}
+						onclick={() => themeDropdownOpen = !themeDropdownOpen}
+						onkeydown={(e) => e.key === 'Enter' && (themeDropdownOpen = !themeDropdownOpen)}
+						aria-label="テーマを変更"
+					>
+						<!-- 現在のテーマカラー表示 -->
+						<div class="flex gap-0.5">
+							{#each Object.values(themeInfo.colors).slice(0, 3) as color}
+								<div 
+									class="w-2 h-2 rounded-full border border-base-content/30"
+									style="background: {color}"
+								></div>
+							{/each}
+						</div>
+						
+						<span class="hidden sm:inline text-xs">{themeInfo.displayName}</span>
+						
+						<!-- ドロップダウン矢印 -->
+						<svg 
+							class="w-3 h-3 fill-current transition-transform"
+							class:rotate-180={themeDropdownOpen}
+							xmlns="http://www.w3.org/2000/svg" 
+							viewBox="0 0 24 24"
+						>
+							<path d="M7 10l5 5 5-5z"/>
+						</svg>
+					</div>
+
+					<!-- ドロップダウンメニュー -->
+					{#if themeDropdownOpen}
+						<div class="dropdown-content bg-base-200 rounded-box z-[1] w-64 p-3 shadow-2xl border border-base-300 mt-2">
+							<div class="text-sm font-medium mb-3 text-base-content/70">クイックテーマ選択</div>
+							
+							<!-- クイックテーマボタン -->
+							<div class="grid grid-cols-2 gap-2 mb-3">
+								{#each quickThemes as themeName}
+									<button
+										class="btn btn-xs justify-start gap-1 h-auto min-h-[2rem] p-2"
+										class:btn-primary={currentTheme === themeName}
+										class:btn-ghost={currentTheme !== themeName}
+										onclick={() => setQuickTheme(themeName)}
+									>
+										<!-- テーマカラー -->
+										<div class="flex gap-0.5">
+											{#each Object.values(themeColors[themeName] || themeColors.light).slice(0, 2) as color}
+												<div 
+													class="w-1.5 h-1.5 rounded-full border border-white/30"
+													style="background: {color}"
+												></div>
+											{/each}
+										</div>
+										<span class="text-xs">{getThemeDisplayName(themeName)}</span>
+									</button>
+								{/each}
+							</div>
+							
+							<!-- 詳細設定へのリンク -->
+							<div class="divider my-2"></div>
+							<a 
+								href="/theme-settings" 
+								class="btn btn-outline btn-xs w-full"
+								onclick={() => themeDropdownOpen = false}
+							>
+								🎨 詳細なテーマ設定
+							</a>
+						</div>
+					{/if}
+				</div>
+
 				<div class="hidden md:flex items-center gap-1">
 					<button class="btn btn-sm btn-ghost btn-circle" aria-label="通知を表示">
 						<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,6 +179,7 @@
 					>
 						<li><a href="/profile">プロフィール</a></li>
 						<li><a href="/settings">設定</a></li>
+						<li><a href="/theme-settings">🎨 テーマ設定</a></li>
 						<li class="mt-1 border-t border-base-200/50 pt-1"><a href="/logout" class="text-error">ログアウト</a></li>
 					</ul>
 				</div>
@@ -76,11 +197,12 @@
 		<footer class="footer footer-center p-4 bg-base-100 text-base-content border-t border-base-200/30">
 			<div class="flex flex-col md:flex-row justify-between w-full">
 				<div class="text-xs text-base-content/70">
-					© 2025 F0 Admin. All rights reserved.
+					© 2025 F0 Admin. All rights reserved. - {themeInfo.displayName}テーマ
 				</div>
 				<div class="flex gap-4 md:ml-6">
 					<a href="/terms" class="link link-hover text-xs">利用規約</a>
 					<a href="/privacy" class="link link-hover text-xs">プライバシーポリシー</a>
+					<a href="/theme-settings" class="link link-hover text-xs">テーマ設定</a>
 				</div>
 			</div>
 		</footer>
@@ -92,3 +214,33 @@
 		<Sidebar />
 	</div>
 </div>
+
+<!-- グローバルスタイル -->
+<style>
+	:global(html) {
+		scroll-behavior: smooth;
+	}
+	
+	/* スクロールバーのスタイリング */
+	:global(html) {
+		scrollbar-width: thin;
+		scrollbar-color: oklch(var(--bc) / 0.2) transparent;
+	}
+	
+	:global(::-webkit-scrollbar) {
+		width: 6px;
+	}
+	
+	:global(::-webkit-scrollbar-track) {
+		background: transparent;
+	}
+	
+	:global(::-webkit-scrollbar-thumb) {
+		background: oklch(var(--bc) / 0.2);
+		border-radius: 3px;
+	}
+	
+	:global(::-webkit-scrollbar-thumb:hover) {
+		background: oklch(var(--bc) / 0.3);
+	}
+</style>
