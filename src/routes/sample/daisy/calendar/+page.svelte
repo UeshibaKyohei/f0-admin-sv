@@ -1,0 +1,162 @@
+<script>
+  import BasicImplementations from './BasicImplementations.svelte';
+  import PositionAdjustment from './PositionAdjustment.svelte';
+  import FormIntegrations from './FormIntegrations.svelte';
+  import DateRangeSelections from './DateRangeSelections.svelte';
+  import CustomizationExamples from './CustomizationExamples.svelte';
+  import PracticaluseCases from './PracticaluseCases.svelte';
+
+  import { onMount } from 'svelte';
+  
+  let activeSection = 'basic';
+  let sections = [
+    { id: 'basic', name: '基本的な実装例', icon: '📅' },
+    { id: 'position', name: '位置調整', icon: '📍' },
+    { id: 'form', name: 'フォーム統合', icon: '📝' },
+    { id: 'range', name: '日付範囲選択', icon: '📆' },
+    { id: 'custom', name: 'カスタマイズ例', icon: '🎨' },
+    { id: 'usecase', name: '実用的なユースケース', icon: '💼' },
+  ];
+  
+  let copySuccess = {};
+  
+  function copyToClipboard(code, id) {
+    navigator.clipboard.writeText(code).then(() => {
+      copySuccess[id] = true;
+      setTimeout(() => {
+        copySuccess[id] = false;
+      }, 2000);
+    });
+  }
+  
+  onMount(() => {
+    // スムーズスクロール対応
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash && sections.find(s => s.id === hash)) {
+        activeSection = hash;
+      }
+    };
+    
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  });
+</script>
+
+<div class="min-h-screen bg-base-300">
+  <!-- ヘッダー -->
+  <div class="bg-base-100 shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-6">
+      <h1 class="text-4xl font-bold text-primary">DaisyUI Calendar チートシート</h1>
+      <p class="text-base-content/70 mt-2">
+        コピペで使えるカレンダー・デートピッカーの実装例集
+      </p>
+    </div>
+    
+    <!-- ナビゲーション -->
+    <div class="border-t border-base-300">
+      <div class="container mx-auto px-4">
+        <div class="flex overflow-x-auto py-2 gap-2 scrollbar-thin">
+          {#each sections as section}
+            <a 
+              href="#{section.id}"
+              class="btn btn-sm {activeSection === section.id ? 'btn-primary' : 'btn-ghost'} whitespace-nowrap"
+              on:click={() => activeSection = section.id}
+            >
+              <span class="text-lg mr-1">{section.icon}</span>
+              {section.name}
+            </a>
+          {/each}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- メインコンテンツ -->
+  <div class="container mx-auto px-4 py-8">
+    <div class="grid lg:grid-cols-4 gap-6">
+      <!-- サイドバー -->
+      <aside class="lg:col-span-1">
+        <div class="sticky top-32 space-y-4">
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title text-lg">クイックナビ</h2>
+              <ul class="menu menu-sm">
+                {#each sections as section}
+                  <li>
+                    <a 
+                      href="#{section.id}"
+                      class="{activeSection === section.id ? 'active' : ''}"
+                      on:click={() => activeSection = section.id}
+                    >
+                      <span class="text-lg">{section.icon}</span>
+                      {section.name}
+                    </a>
+                  </li>
+                {/each}
+              </ul>
+            </div>
+          </div>
+          
+          <div class="card bg-primary/10 border-2 border-primary/20">
+            <div class="card-body">
+              <h3 class="font-bold text-primary">💡 使い方のヒント</h3>
+              <p class="text-sm">
+                各サンプルの右上にある「コピー」ボタンをクリックすると、
+                コードをクリップボードにコピーできます。
+              </p>
+            </div>
+          </div>
+        </div>
+      </aside>
+      
+      <!-- コンテンツエリア -->
+      <main class="lg:col-span-3">
+        <div class="space-y-8">
+          {#if activeSection === 'basic'}
+            <BasicImplementations {copyToClipboard} {copySuccess} />
+          {:else if activeSection === 'position'}
+            <PositionAdjustment {copyToClipboard} {copySuccess} />
+          {:else if activeSection === 'form'}
+            <FormIntegrations {copyToClipboard} {copySuccess} />
+          {:else if activeSection === 'range'}
+            <DateRangeSelections {copyToClipboard} {copySuccess} />
+          {:else if activeSection === 'custom'}
+            <CustomizationExamples {copyToClipboard} {copySuccess} />
+          {:else if activeSection === 'usecase'}
+            <PracticaluseCases {copyToClipboard} {copySuccess} />
+          {/if}
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* カスタムスクロールバー */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(var(--bc) / 0.2) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: oklch(var(--bc) / 0.2);
+    border-radius: 4px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(var(--bc) / 0.3);
+  }
+</style>

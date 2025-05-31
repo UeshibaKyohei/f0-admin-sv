@@ -1,14 +1,113 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
+
 @plugin "daisyui" {
-  themes: acid --default, cupcake --prefersdark;
+  themes: 
+    light --default,
+    dark --prefersdark,
+    cupcake,
+    bumblebee,
+    emerald,
+    corporate,
+    synthwave,
+    retro,
+    cyberpunk,
+    valentine,
+    halloween,
+    garden,
+    forest,
+    aqua,
+    lofi,
+    pastel,
+    fantasy,
+    wireframe,
+    black,
+    luxury,
+    dracula,
+    cmyk,
+    autumn,
+    business,
+    acid,
+    lemonade,
+    night,
+    coffee,
+    winter,
+    dim,
+    nord,
+    sunset,
+    caramellatte,
+    abyss,
+    silk;
 }
-/* 2025年のUIトレンドに合わせたカスタムスタイル */
 
 :root {
   font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
+}
 
+/* テーマ切り替え時のスムーズトランジション */
+@layer base {
+  :root {
+    /* カスタムトランジション設定 */
+    /* --theme-transition-duration: 200ms;
+    --theme-transition-easing: ease-in-out; */
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    transition: 
+      background-color var(--theme-transition-duration) var(--theme-transition-easing),
+      color var(--theme-transition-duration) var(--theme-transition-easing);
+  }
+  
+  /* 全要素にテーマ切り替えトランジションを適用 */
+  * {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-duration: var(--theme-transition-duration);
+    transition-timing-function: var(--theme-transition-easing);
+  }
+  
+  /* フォーカス時のアウトライン強化 */
+  :focus-visible {
+    outline: 2px solid oklch(var(--p));
+    outline-offset: 2px;
+  }
+}
+
+/* カスタムテーマ変数（必要に応じて） */
+@theme {
+  /* カスタムアニメーション */
+  /* --animate-theme-switch: theme-switch 300ms ease-in-out; */
+  
+  /* カスタムシャドウ */
+  --shadow-theme-card: 0 4px 6px -1px oklch(0 0 0 / 0.1), 0 2px 4px -2px oklch(0 0 0 / 0.1);
+}
+
+/* テーマ切り替えアニメーション */
+@layer utilities {
+  /* @keyframes theme-switch {
+    0% { opacity: 0.8; }
+    50% { opacity: 0.9; }
+    100% { opacity: 1; }
+  } */
+  
+  /* .animate-theme-switch {
+    animation: var(--animate-theme-switch);
+  } */
+}
+
+/* ダークモード時の追加調整 */
+@layer base {
+  [data-theme="dark"] {
+    color-scheme: dark;
+  }
+  
+  [data-theme="light"] {
+    color-scheme: light;
+  }
 }
 
 @supports (font-variation-settings: normal) {
