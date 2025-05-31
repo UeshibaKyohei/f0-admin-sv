@@ -18,23 +18,23 @@ This is a SvelteKit-based admin dashboard application with modern design princip
 
 ```bash
 # Development
-npm run dev              # Start dev server (port 5173)
-npm run build            # Build for production
-npm run preview          # Preview production build
+pnpm run dev              # Start dev server (port 5173)
+pnpm run build            # Build for production
+pnpm run preview          # Preview production build
 
 # Testing
-npm run test             # Run all tests (unit + e2e)
-npm run test:unit        # Run unit tests only
-npm run test:e2e         # Run e2e tests only
+pnpm run test             # Run all tests (unit + e2e)
+pnpm run test:unit        # Run unit tests only
+pnpm run test:e2e         # Run e2e tests only
 
 # Code Quality
-npm run lint             # Run prettier check + eslint
-npm run format           # Format code with prettier
-npm run check            # Type check with svelte-check
+pnpm run lint             # Run prettier check + eslint
+pnpm run format           # Format code with prettier
+pnpm run check            # Type check with svelte-check
 
 # Storybook
-npm run storybook        # Start Storybook dev server
-npm run build-storybook  # Build Storybook
+pnpm run storybook        # Start Storybook dev server
+pnpm run build-storybook  # Build Storybook
 ```
 
 ## Architecture
