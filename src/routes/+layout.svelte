@@ -187,6 +187,7 @@
 		</header>
 
 		<!-- メインコンテンツエリア -->
+
 		<main class="flex-grow p-2 md:p-3 bg-base-200/30">
 			<div class="max-w-full mx-auto">
 				{@render children()}
