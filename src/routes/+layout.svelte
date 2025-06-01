@@ -187,10 +187,8 @@
 		</header>
 
 		<!-- メインコンテンツエリア -->
-		<main class="flex-grow p-4 md:p-6 bg-base-200/30">
-			<div class="max-w-7xl mx-auto">
-				{@render children()}
-			</div>
+		<main class="flex-grow bg-base-200/30">
+			{@render children()}
 		</main>
 
 		<!-- フッター -->
