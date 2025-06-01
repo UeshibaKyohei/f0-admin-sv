@@ -366,3 +366,47 @@ export const userStats = derived(
   </div>
 </div>
 ```
+
+## DaisyUI v5 アバターコンポーネント
+
+### 基本的な使い方
+
+DaisyUI v5では、アバターコンポーネントに以下のクラスを使用します：
+
+- `avatar` - アバターのベースクラス
+- `avatar-placeholder` - テキストベースのアバター（イニシャル表示）に必須
+- `avatar-online` / `avatar-offline` - オンライン/オフライン状態の表示
+
+### テキストアバターの正しい実装
+
+```html
+<!-- 正しい実装例 -->
+<div class="avatar avatar-placeholder">
+  <div class="w-10 h-10 rounded-full bg-primary text-primary-content">
+    <span>K</span>  <!-- 自動的に中央揃えされる -->
+  </div>
+</div>
+```
+
+### 重要な変更点（v4→v5）
+
+- ステータスクラスが変更: `online` → `avatar-online`、`offline` → `avatar-offline`
+- `avatar-placeholder`クラスがテキストアバターで必須に
+
+### よくある間違い
+
+```html
+<!-- ❌ 間違い: avatar-placeholderがない -->
+<div class="avatar">
+  <div class="w-10 h-10 rounded-full bg-primary text-primary-content flex items-center justify-center">
+    <span>K</span>
+  </div>
+</div>
+
+<!-- ✅ 正しい: avatar-placeholderを使用、高さも指定 -->
+<div class="avatar avatar-placeholder">
+  <div class="w-10 h-10 rounded-full bg-primary text-primary-content">
+    <span>K</span>
+  </div>
+</div>
+```
