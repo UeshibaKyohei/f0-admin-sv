@@ -1,4 +1,4 @@
 // レイアウトファイル
 export function load() {
-  return {};
+	return {};
 }

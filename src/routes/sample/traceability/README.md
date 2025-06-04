@@ -19,6 +19,7 @@
 ### テーブル構造
 
 #### 1. batches（バッチマスタ）
+
 製造ロットの基本情報を管理
 
 ```sql
@@ -42,6 +43,7 @@ CREATE TABLE batches (
 ```
 
 #### 2. process_steps（工程マスタ）
+
 製品ごとの標準工程定義
 
 ```sql
@@ -61,6 +63,7 @@ CREATE TABLE process_steps (
 ```
 
 #### 3. batch_progress（バッチ進捗）
+
 リアルタイムの工程進捗管理
 
 ```sql
@@ -84,6 +87,7 @@ CREATE TABLE batch_progress (
 ```
 
 #### 4. alerts（異常・アラート）
+
 品質異常の記録と管理
 
 ```sql
@@ -116,6 +120,7 @@ CREATE TABLE alerts (
 ```
 
 #### 5. work_logs（作業ログ）
+
 全作業の監査証跡
 
 ```sql
@@ -142,28 +147,28 @@ CREATE TABLE work_logs (
 ```typescript
 // api/index.ts のuseMockをfalseに設定
 const API_CONFIG = {
-  useMock: false, // 本番環境では false
-  baseUrl: process.env.API_BASE_URL || '/api',
-  timeout: 30000,
+	useMock: false, // 本番環境では false
+	baseUrl: process.env.API_BASE_URL || '/api',
+	timeout: 30000
 };
 ```
 
 ### エンドポイント一覧
 
-| メソッド | エンドポイント | 説明 |
-|---------|--------------|------|
-| GET | `/api/batches` | バッチ一覧取得 |
-| GET | `/api/batches/:id` | バッチ詳細取得 |
-| PATCH | `/api/batches/:id` | バッチ情報更新 |
-| GET | `/api/products/:id/process-steps` | 工程定義取得 |
-| GET | `/api/batches/:id/progress` | 進捗サマリ取得 |
-| PATCH | `/api/batches/:id/progress/:stepId` | 進捗更新 |
-| GET | `/api/batches/:id/alerts` | アラート一覧取得 |
-| POST | `/api/alerts` | アラート登録 |
-| PATCH | `/api/alerts/:id` | アラート更新 |
-| POST | `/api/alerts/:id/resolve` | アラート解決 |
-| GET | `/api/batches/:id/logs` | 作業ログ取得 |
-| POST | `/api/work-logs` | ログ登録 |
+| メソッド | エンドポイント                      | 説明             |
+| -------- | ----------------------------------- | ---------------- |
+| GET      | `/api/batches`                      | バッチ一覧取得   |
+| GET      | `/api/batches/:id`                  | バッチ詳細取得   |
+| PATCH    | `/api/batches/:id`                  | バッチ情報更新   |
+| GET      | `/api/products/:id/process-steps`   | 工程定義取得     |
+| GET      | `/api/batches/:id/progress`         | 進捗サマリ取得   |
+| PATCH    | `/api/batches/:id/progress/:stepId` | 進捗更新         |
+| GET      | `/api/batches/:id/alerts`           | アラート一覧取得 |
+| POST     | `/api/alerts`                       | アラート登録     |
+| PATCH    | `/api/alerts/:id`                   | アラート更新     |
+| POST     | `/api/alerts/:id/resolve`           | アラート解決     |
+| GET      | `/api/batches/:id/logs`             | 作業ログ取得     |
+| POST     | `/api/work-logs`                    | ログ登録         |
 
 ### WebSocket連携
 
@@ -173,13 +178,13 @@ const API_CONFIG = {
 // サーバー側実装例（Node.js + ws）
 wss.on('connection', (ws, req) => {
   const batchId = req.url.match(/\/ws\/batches\/(.+)/)[1];
-  
+
   // 進捗更新イベント
   ws.send(JSON.stringify({
     event: 'progress-update',
     payload: { batchId, stepId, progress: 75 }
   }));
-  
+
   // アラート発生イベント
   ws.send(JSON.stringify({
     event: 'alert-created',
@@ -197,20 +202,20 @@ DaisyUIのテーマシステムを使用：
 ```javascript
 // tailwind.config.js
 module.exports = {
-  daisyui: {
-    themes: [
-      {
-        factory: {
-          "primary": "#2563eb",
-          "secondary": "#7c3aed",
-          "accent": "#f59e0b",
-          "neutral": "#374151",
-          "base-100": "#ffffff",
-          // カスタムカラー定義
-        },
-      },
-    ],
-  },
+	daisyui: {
+		themes: [
+			{
+				factory: {
+					primary: '#2563eb',
+					secondary: '#7c3aed',
+					accent: '#f59e0b',
+					neutral: '#374151',
+					'base-100': '#ffffff'
+					// カスタムカラー定義
+				}
+			}
+		]
+	}
 };
 ```
 
@@ -221,12 +226,12 @@ module.exports = {
 ```svelte
 <!-- src/routes/sample/traceability/SankeyDiagram.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import * as d3 from 'd3';
-  
-  let { processSteps, progress } = $props();
-  
-  // サンキーダイアグラムの実装
+	import { onMount } from 'svelte';
+	import * as d3 from 'd3';
+
+	let { processSteps, progress } = $props();
+
+	// サンキーダイアグラムの実装
 </script>
 ```
 
@@ -235,33 +240,37 @@ module.exports = {
 ```typescript
 // constants.ts に追加
 export const CUSTOM_ALERT_TYPES = {
-  HUMIDITY: 'humidity',
-  DUST: 'dust',
-  NOISE: 'noise',
+	HUMIDITY: 'humidity',
+	DUST: 'dust',
+	NOISE: 'noise'
 } as const;
 ```
 
 ## 🚀 本番環境への移行チェックリスト
 
 ### 1. API接続設定
+
 - [ ] 環境変数の設定（.env）
 - [ ] CORSポリシーの確認
 - [ ] 認証トークンの実装
 - [ ] エラーハンドリングの強化
 
 ### 2. セキュリティ
+
 - [ ] XSS対策の確認
 - [ ] CSRF対策の実装
 - [ ] 入力値バリデーション
 - [ ] SQLインジェクション対策
 
 ### 3. パフォーマンス
+
 - [ ] ページネーションの実装
 - [ ] 画像最適化
 - [ ] キャッシュ戦略
 - [ ] WebSocket再接続ロジック
 
 ### 4. 監視・ログ
+
 - [ ] エラーログ収集
 - [ ] パフォーマンス監視
 - [ ] ユーザー行動分析
@@ -272,43 +281,43 @@ export const CUSTOM_ALERT_TYPES = {
 ### よくある実装パターン
 
 #### 1. カスタムフィルター追加
+
 ```typescript
 // 期間フィルターの例
 const filteredBatches = $derived(
-  batches.filter(batch => {
-    const date = new Date(batch.startDate);
-    return date >= startDate && date <= endDate;
-  })
+	batches.filter((batch) => {
+		const date = new Date(batch.startDate);
+		return date >= startDate && date <= endDate;
+	})
 );
 ```
 
 #### 2. リアルタイム更新の最適化
+
 ```typescript
 // デバウンス処理
 import { debounce } from 'lodash-es';
 
 const updateProgress = debounce(async (data) => {
-  await apiClient.updateProgress(batchId, stepId, data);
+	await apiClient.updateProgress(batchId, stepId, data);
 }, 500);
 ```
 
 #### 3. 権限管理の実装
+
 ```typescript
 // ロールベースアクセス制御
-const canEditAlert = $derived(
-  user.role === 'supervisor' || 
-  user.role === 'quality_manager'
-);
+const canEditAlert = $derived(user.role === 'supervisor' || user.role === 'quality_manager');
 ```
 
 ### トラブルシューティング
 
-| 問題 | 原因 | 解決方法 |
-|-----|------|---------|
+| 問題                 | 原因                   | 解決方法                    |
+| -------------------- | ---------------------- | --------------------------- |
 | データが更新されない | リアクティビティの欠如 | $state, $derived の使用確認 |
-| APIエラー | CORS, 認証 | ヘッダー設定の確認 |
-| パフォーマンス低下 | 大量データ | 仮想スクロール実装 |
-| レイアウト崩れ | CSS競合 | DaisyUIクラスの確認 |
+| APIエラー            | CORS, 認証             | ヘッダー設定の確認          |
+| パフォーマンス低下   | 大量データ             | 仮想スクロール実装          |
+| レイアウト崩れ       | CSS競合                | DaisyUIクラスの確認         |
 
 ## 🔗 関連ドキュメント
 

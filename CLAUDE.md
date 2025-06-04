@@ -40,27 +40,32 @@ pnpm run build-storybook  # Build Storybook
 ## Architecture
 
 ### Routing Structure
+
 - File-based routing in `src/routes/`
 - Layout components: `+layout.svelte`
 - Page components: `+page.svelte`
 - Load functions: `+page.js` or `+page.server.js`
 
 ### Component Organization
+
 - **Reusable components**: `src/lib/components/`
 - **Route-specific components**: Alongside route files
 - **Storybook stories**: `src/stories/`
 - **Component tests**: Co-located `.test.ts` files
 
 ### State Management
+
 - Svelte stores in `src/lib/stores/`
 - Route-specific stores alongside routes (e.g., `chatStore.js`)
 
 ### Testing Strategy
+
 1. **Unit tests**: Vitest + Testing Library, co-located with components
 2. **E2E tests**: Playwright tests in `e2e/` directory
 3. **Component docs**: Storybook stories for visual testing
 
 ### Styling Approach
+
 - Utility-first CSS with Tailwind
 - DaisyUI component classes
 - Global styles in `src/app.css`
@@ -69,6 +74,7 @@ pnpm run build-storybook  # Build Storybook
 ## Key Design Principles
 
 The project follows 2025 admin dashboard design trends:
+
 - **Minimalist UI**: Clean interfaces with effective whitespace
 - **Mobile-first**: Responsive design for all screen sizes
 - **Microinteractions**: Subtle animations for user feedback
@@ -97,7 +103,6 @@ The project follows 2025 admin dashboard design trends:
 
 Claudeは何度この指示をしても自身の知っている古いSvelte 4系、Daisy4系、Tailwind 3系を利用しようとします。これは重大なエラーを招きます。作業開始のたびに必ず最新情報を取得すること。
 
-
 # 出力ルール
 
 - コードは500行程度を最大とし、超えるものはファイル分割を行ってください。
@@ -115,7 +120,6 @@ Claudeは何度この指示をしても自身の知っている古いSvelte 4系
 - DaisyUIやTailwind v4はすでに利用できる状態にあります。(import済み)
 - 作成は基本的にrouter直下に配置する+page.svelteとそれが呼び出す切り出されたコンポーネントを作成してもらう事になります。
 - 単なるファイルを切り出したコンポーネントは汎用性ではなく単に切り出されただけのものなので+page.svelteファイルと同フォルダ内に配置する前提でimportしてください。
-
 
 # 追加情報
 
@@ -139,6 +143,7 @@ const code = "let a = 10;"
 ### コードサンプルの注意点
 
 例えば
+
 ```
 let code = `
 <script>
@@ -146,6 +151,7 @@ let code = `
 </script>
 `
 ```
+
 の様に書くとsvelteのコンパイラがscriptタグの終了を判定してしまいます。
 必ずエスケープを行ってください。
 
@@ -174,21 +180,22 @@ AIはContext7を使わずに自信満々に間違った古いコードを書き�
 // ❌ 古い構文
 $: volumePercentage = Math.round(volumeRange);
 $: temperatureLabel = temperatureRange < 18 ? 'Cold' : temperatureRange < 25 ? 'Comfortable' : 'Hot';
-$: priceFormatted = new Intl.NumberFormat('en-US', { 
-    style: 'currency', 
-    currency: 'USD' 
+$: priceFormatted = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
 }).format(priceRange);
 
 // ✅ 正しいSvelte 5 runes構文
 const volumePercentage = $derived(Math.round(volumeRange));
 const temperatureLabel = $derived(temperatureRange < 18 ? 'Cold' : temperatureRange < 25 ? 'Comfortable' : 'Hot');
-const priceFormatted = $derived(new Intl.NumberFormat('en-US', { 
-    style: 'currency', 
-    currency: 'USD' 
+const priceFormatted = $derived(new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
 }).format(priceRange));
 ```
 
 Props関連
+
 ```
 // 古い書き方
 <script>
@@ -208,47 +215,49 @@ Props関連
 Svelte 5のリアクティビティは**参照の変更**を検知します。オブジェクトや配列の中身を変更しても、参照が同じならUIは更新されません。
 
 #### ❌ 間違った実装（UIが更新されない）
+
 ```javascript
 // store.update()内での破壊的メソッドの使用
-myStore.update(items => {
-  items.push(newItem);     // ❌ 既存配列を変更
-  return items;            // ❌ 同じ参照を返す
+myStore.update((items) => {
+	items.push(newItem); // ❌ 既存配列を変更
+	return items; // ❌ 同じ参照を返す
 });
 
 // オブジェクトの直接変更
-myStore.update(data => {
-  data.property = newValue; // ❌ 既存オブジェクトを変更
-  return data;             // ❌ 同じ参照を返す
+myStore.update((data) => {
+	data.property = newValue; // ❌ 既存オブジェクトを変更
+	return data; // ❌ 同じ参照を返す
 });
 
 // ネストしたデータの変更
-messages.update(msgs => {
-  msgs[chatId].push(newMessage);  // ❌ ネストした配列を直接変更
-  return msgs;
+messages.update((msgs) => {
+	msgs[chatId].push(newMessage); // ❌ ネストした配列を直接変更
+	return msgs;
 });
 ```
 
 #### ✅ 正しい実装（イミュータブルな更新）
+
 ```javascript
 // 配列の更新
-myStore.update(items => {
-  return [...items, newItem];  // ✅ 新しい配列を返す
+myStore.update((items) => {
+	return [...items, newItem]; // ✅ 新しい配列を返す
 });
 
 // オブジェクトの更新
-myStore.update(data => {
-  return { ...data, property: newValue };  // ✅ 新しいオブジェクトを返す
+myStore.update((data) => {
+	return { ...data, property: newValue }; // ✅ 新しいオブジェクトを返す
 });
 
 // ネストしたデータの更新
-messages.update(msgs => {
-  const newMsgs = { ...msgs };  // 新しいオブジェクトを作成
-  if (!newMsgs[chatId]) {
-    newMsgs[chatId] = [newMessage];
-  } else {
-    newMsgs[chatId] = [...newMsgs[chatId], newMessage];  // 新しい配列
-  }
-  return newMsgs;  // ✅ 新しいオブジェクトを返す
+messages.update((msgs) => {
+	const newMsgs = { ...msgs }; // 新しいオブジェクトを作成
+	if (!newMsgs[chatId]) {
+		newMsgs[chatId] = [newMessage];
+	} else {
+		newMsgs[chatId] = [...newMsgs[chatId], newMessage]; // 新しい配列
+	}
+	return newMsgs; // ✅ 新しいオブジェクトを返す
 });
 
 // 配列の一般的な操作
@@ -260,29 +269,32 @@ messages.update(msgs => {
 ### 2. `{@const}` vs `$derived` の使い分け
 
 #### `{@const}` - 静的な値（リアクティブでない）
+
 ```svelte
 {#if user}
-  {@const fullName = `${user.firstName} ${user.lastName}`}
-  <p>Welcome, {fullName}</p>  <!-- userが変わっても更新されない -->
+	{@const fullName = `${user.firstName} ${user.lastName}`}
+	<p>Welcome, {fullName}</p>
+	<!-- userが変わっても更新されない -->
 {/if}
 ```
 
 #### `$derived` - リアクティブな派生値
+
 ```svelte
 <script>
-  // 単純な派生値
-  const fullName = $derived(`${user.firstName} ${user.lastName}`);
-  
-  // 複雑な計算が必要な場合
-  const stats = $derived.by(() => {
-    const total = items.length;
-    const completed = items.filter(item => item.done).length;
-    return {
-      total,
-      completed,
-      percentage: total > 0 ? (completed / total) * 100 : 0
-    };
-  });
+	// 単純な派生値
+	const fullName = $derived(`${user.firstName} ${user.lastName}`);
+
+	// 複雑な計算が必要な場合
+	const stats = $derived.by(() => {
+		const total = items.length;
+		const completed = items.filter((item) => item.done).length;
+		return {
+			total,
+			completed,
+			percentage: total > 0 ? (completed / total) * 100 : 0
+		};
+	});
 </script>
 ```
 
@@ -291,52 +303,52 @@ messages.update(msgs => {
 ```javascript
 // ❌ 関数内では$プレフィックスは使えない
 function calculateTotal() {
-  const items = $myStore;  // エラー: $myStore is an illegal variable name
+	const items = $myStore; // エラー: $myStore is an illegal variable name
 }
 
 // ✅ get()を使用
 import { get } from 'svelte/store';
 
 function calculateTotal() {
-  const items = get(myStore);  // 現在の値を取得
-  return items.reduce((sum, item) => sum + item.price, 0);
+	const items = get(myStore); // 現在の値を取得
+	return items.reduce((sum, item) => sum + item.price, 0);
 }
 
 // ✅ または関数の外で値を取得
-const items = $myStore;  // コンポーネントのトップレベルでは使用可能
+const items = $myStore; // コンポーネントのトップレベルでは使用可能
 function calculateTotal() {
-  return items.reduce((sum, item) => sum + item.price, 0);
+	return items.reduce((sum, item) => sum + item.price, 0);
 }
 ```
 
 ### 4. 状態管理のベストプラクティス
 
 #### シングルソースオブトゥルース
+
 ```javascript
 // ❌ 同じデータを複数箇所で管理
-users: [{ id: 1, activeTaskCount: 2 }]  // ここと...
-tasks: [{ userId: 1 }, { userId: 1 }]   // ここで重複
+users: [{ id: 1, activeTaskCount: 2 }]; // ここと...
+tasks: [{ userId: 1 }, { userId: 1 }]; // ここで重複
 
 // ✅ 単一の真実の源 + 派生値
 export const tasks = writable([]);
-export const userStats = derived(
-  [users, tasks],
-  ([$users, $tasks]) => {
-    return $users.map(user => ({
-      ...user,
-      activeTaskCount: $tasks.filter(t => t.userId === user.id).length
-    }));
-  }
-);
+export const userStats = derived([users, tasks], ([$users, $tasks]) => {
+	return $users.map((user) => ({
+		...user,
+		activeTaskCount: $tasks.filter((t) => t.userId === user.id).length
+	}));
+});
 ```
 
 ### 5. よくあるミスと解決方法
 
 #### 配列/オブジェクトの更新時
+
 - ❌ `push()`, `pop()`, `splice()`, `shift()`, `unshift()`
 - ✅ `[...array]`, `filter()`, `map()`, スプレッド構文
 
 #### リアクティビティが動かない時のチェックリスト
+
 1. ストアの更新で新しい参照を返しているか？
 2. `{@const}`を使っていないか？（`$derived`が必要では？）
 3. 関数内で`$store`を使っていないか？（`get(store)`を使う）
@@ -345,24 +357,26 @@ export const userStats = derived(
 ### 6. DaisyUI v5 の注意点
 
 #### テーマの適用
+
 ```svelte
 <!-- グローバルに影響しないようスコープを限定 -->
 <div data-theme="light" class="min-h-screen">
-  <!-- この中だけテーマが適用される -->
+	<!-- この中だけテーマが適用される -->
 </div>
 ```
 
 #### モーダルやドロワーの制御
+
 ```svelte
 <script>
-  let modalOpen = $state(false);
+	let modalOpen = $state(false);
 </script>
 
 <!-- DaisyUI v5では input[type="checkbox"] で制御 -->
 <input type="checkbox" id="my-modal" class="modal-toggle" bind:checked={modalOpen} />
 <div class="modal">
-  <div class="modal-box">
-    <!-- content -->
-  </div>
+	<div class="modal-box">
+		<!-- content -->
+	</div>
 </div>
 ```
