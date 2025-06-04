@@ -207,13 +207,13 @@
 	}
 </script>
 
-<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
 	<!-- ヘッダー -->
 	<div class="mb-6 flex items-center justify-between">
 		<div>
-			<h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+			<h3 class="flex items-center gap-2 text-lg font-semibold text-base-content">
 				<div
-					class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 text-white"
+					class="flex h-8 w-8 items-center justify-center rounded-lg bg-info text-info-content"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -237,12 +237,12 @@
 				</div>
 				配送追跡マップ
 			</h3>
-			<p class="mt-1 text-sm text-slate-600">リアルタイム配送状況と最適化</p>
+			<p class="mt-1 text-sm text-base-content/70">リアルタイム配送状況と最適化</p>
 		</div>
 
 		<div class="flex items-center gap-3">
 			<!-- ステータスフィルタ -->
-			<select class="select select-bordered select-sm bg-white" bind:value={statusFilter}>
+			<select class="select select-bordered select-sm bg-base-100" bind:value={statusFilter}>
 				{#each statusOptions as option}
 					<option value={option.id}>{option.icon} {option.name}</option>
 				{/each}
@@ -268,31 +268,31 @@
 		<div class="flex h-96 items-center justify-center">
 			<div class="text-center">
 				<span class="loading loading-spinner loading-lg text-primary"></span>
-				<p class="mt-2 text-sm text-slate-600">配送データを読み込み中...</p>
+				<p class="mt-2 text-sm text-base-content/70">配送データを読み込み中...</p>
 			</div>
 		</div>
 	{:else}
 		<!-- 統計サマリー -->
 		<div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-5">
-			<div class="rounded-lg bg-slate-50 p-4 text-center">
-				<div class="text-2xl font-bold text-slate-900">{deliveryStats.total || 0}</div>
-				<div class="text-sm text-slate-600">総配送数</div>
+			<div class="rounded-lg bg-base-200 p-4 text-center">
+				<div class="text-2xl font-bold text-base-content">{deliveryStats.total || 0}</div>
+				<div class="text-sm text-base-content/70">総配送数</div>
 			</div>
-			<div class="rounded-lg bg-orange-50 p-4 text-center">
-				<div class="text-2xl font-bold text-orange-600">{deliveryStats.pending || 0}</div>
-				<div class="text-sm text-slate-600">準備中</div>
+			<div class="rounded-lg bg-warning/20 p-4 text-center">
+				<div class="text-2xl font-bold text-warning">{deliveryStats.pending || 0}</div>
+				<div class="text-sm text-base-content/70">準備中</div>
 			</div>
-			<div class="rounded-lg bg-blue-50 p-4 text-center">
-				<div class="text-2xl font-bold text-blue-600">{deliveryStats.inTransit || 0}</div>
-				<div class="text-sm text-slate-600">配送中</div>
+			<div class="rounded-lg bg-info/20 p-4 text-center">
+				<div class="text-2xl font-bold text-info">{deliveryStats.inTransit || 0}</div>
+				<div class="text-sm text-base-content/70">配送中</div>
 			</div>
-			<div class="rounded-lg bg-green-50 p-4 text-center">
-				<div class="text-2xl font-bold text-green-600">{deliveryStats.delivered || 0}</div>
-				<div class="text-sm text-slate-600">配送完了</div>
+			<div class="rounded-lg bg-success/20 p-4 text-center">
+				<div class="text-2xl font-bold text-success">{deliveryStats.delivered || 0}</div>
+				<div class="text-sm text-base-content/70">配送完了</div>
 			</div>
-			<div class="rounded-lg bg-red-50 p-4 text-center">
-				<div class="text-2xl font-bold text-red-600">{deliveryStats.delayed || 0}</div>
-				<div class="text-sm text-slate-600">遅延</div>
+			<div class="rounded-lg bg-error/20 p-4 text-center">
+				<div class="text-2xl font-bold text-error">{deliveryStats.delayed || 0}</div>
+				<div class="text-sm text-base-content/70">遅延</div>
 			</div>
 		</div>
 
@@ -301,19 +301,19 @@
 			<!-- 疑似マップ表示エリア -->
 			<div class="lg:col-span-2">
 				<div
-					class="relative h-96 overflow-hidden rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100 p-6"
+					class="relative h-96 overflow-hidden rounded-lg bg-base-200 p-6"
 				>
 					<!-- マップヘッダー -->
 					<div class="absolute top-4 left-4 z-10">
-						<div class="rounded-lg bg-white p-3 shadow-md">
-							<div class="flex items-center gap-2 text-sm font-medium text-slate-700">
+						<div class="rounded-lg bg-base-100 p-3 shadow-md">
+							<div class="flex items-center gap-2 text-sm font-medium text-base-content/80">
 								🗺️ リアルタイム配送マップ
 								<div class="h-2 w-2 animate-pulse rounded-full bg-green-400"></div>
 							</div>
-							<div class="text-xs text-slate-500">
+							<div class="text-xs text-base-content/60">
 								中心: {mapCenter.lat.toFixed(4)}, {mapCenter.lng.toFixed(4)}
 							</div>
-							<div class="mt-1 text-xs text-blue-600">
+							<div class="mt-1 text-xs text-info">
 								📊 {getFilteredDeliveries().length}件の配送を追跡中
 							</div>
 						</div>
@@ -322,7 +322,7 @@
 					<!-- 配送効率アラート -->
 					{#if deliveryStats.delayed > 5}
 						<div class="absolute top-4 right-20 z-10">
-							<div class="rounded-lg border border-red-300 bg-red-100 p-2 text-xs text-red-800">
+							<div class="rounded-lg border border-error/30 bg-error/20 p-2 text-xs text-base-content">
 								⚠️ 遅延配送が{deliveryStats.delayed}件発生中
 							</div>
 						</div>
@@ -369,13 +369,13 @@
 									</div>
 									<!-- 倉庫情報ポップアップ -->
 									<div
-										class="invisible absolute -top-16 -left-8 z-20 rounded-lg bg-slate-900 p-2 text-xs whitespace-nowrap text-white group-hover:visible"
+										class="invisible absolute -top-16 -left-8 z-20 rounded-lg bg-neutral text-neutral-content p-2 text-xs whitespace-nowrap group-hover:visible"
 									>
 										<div class="font-medium">{warehouse.name}</div>
 										<div>使用率: {warehouse.currentUtilization}%</div>
 										<div>処理量: {warehouse.monthlyThroughput?.toLocaleString()}/月</div>
 										<div
-											class="absolute top-full left-1/2 -translate-x-1/2 transform border-4 border-transparent border-t-slate-900"
+											class="absolute top-full left-1/2 -translate-x-1/2 transform border-4 border-transparent border-t-neutral"
 										></div>
 									</div>
 								</div>
@@ -395,12 +395,12 @@
 									<div
 										class="relative flex h-6 w-6 items-center justify-center rounded-full border-2 border-white text-xs shadow-lg transition-all hover:z-10 hover:scale-125 {delivery.status ===
 										'delayed'
-											? 'animate-pulse bg-red-500'
+											? 'animate-pulse bg-error'
 											: delivery.status === 'in_transit'
-												? 'bg-blue-500'
+												? 'bg-info'
 												: delivery.status === 'delivered'
-													? 'bg-green-500'
-													: 'bg-orange-500'}"
+													? 'bg-success'
+													: 'bg-warning'}"
 									>
 										{getVehicleIcon(delivery.vehicle.type)}
 
@@ -412,7 +412,7 @@
 
 									<!-- 配送情報ポップアップ -->
 									<div
-										class="invisible absolute -top-20 -left-12 z-20 rounded-lg bg-slate-900 p-2 text-xs whitespace-nowrap text-white group-hover:visible"
+										class="invisible absolute -top-20 -left-12 z-20 rounded-lg bg-neutral text-neutral-content p-2 text-xs whitespace-nowrap group-hover:visible"
 									>
 										<div class="font-medium">{delivery.orderId}</div>
 										<div>🚚 {delivery.vehicle.licensePlate}</div>
@@ -420,14 +420,14 @@
 										<div>⏱️ {formatTimeRemaining(delivery.estimatedArrival)}</div>
 										<div>📦 {delivery.items}個口 / {delivery.distance}km</div>
 										<div
-											class="absolute top-full left-1/2 -translate-x-1/2 transform border-4 border-transparent border-t-slate-900"
+											class="absolute top-full left-1/2 -translate-x-1/2 transform border-4 border-transparent border-t-neutral"
 										></div>
 									</div>
 
 									<!-- 配送ルート線（改良版） -->
 									{#if delivery.status === 'in_transit'}
 										<div
-											class="absolute animate-pulse border-t-2 border-dashed border-blue-400 opacity-60"
+											class="absolute animate-pulse border-t-2 border-dashed border-info opacity-60"
 											style="left: -10px; top: 10px; width: {20 +
 												index * 3}px; transform: rotate({-45 + index * 10}deg)"
 										></div>
@@ -437,13 +437,13 @@
 
 							<!-- 配送エリア境界線 -->
 							<div
-								class="absolute inset-4 rounded-lg border-2 border-dashed border-blue-300 opacity-30"
+								class="absolute inset-4 rounded-lg border-2 border-dashed border-info/30 opacity-30"
 							></div>
 
 							<!-- トラフィック状況表示 -->
 							<div class="absolute bottom-4 left-1/2 -translate-x-1/2 transform">
 								<div
-									class="flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs shadow-md"
+									class="flex items-center gap-2 rounded-full bg-base-100 px-3 py-1 text-xs shadow-md"
 								>
 									<div class="h-2 w-2 rounded-full bg-green-500"></div>
 									<span>交通状況: 良好</span>
@@ -456,7 +456,7 @@
 					<div class="absolute right-4 bottom-4 z-10">
 						<div class="flex flex-col gap-2">
 							<button
-								class="btn btn-sm tooltip tooltip-left border-slate-300 bg-white shadow-md hover:bg-slate-50"
+								class="btn btn-sm tooltip tooltip-left border-base-300 bg-base-100 shadow-md hover:bg-base-200"
 								data-tip="ズームイン"
 							>
 								<svg
@@ -471,7 +471,7 @@
 								</svg>
 							</button>
 							<button
-								class="btn btn-sm tooltip tooltip-left border-slate-300 bg-white shadow-md hover:bg-slate-50"
+								class="btn btn-sm tooltip tooltip-left border-base-300 bg-base-100 shadow-md hover:bg-base-200"
 								data-tip="ズームアウト"
 							>
 								<svg
@@ -486,7 +486,7 @@
 								</svg>
 							</button>
 							<button
-								class="btn btn-sm tooltip tooltip-left border-slate-300 bg-white shadow-md hover:bg-slate-50"
+								class="btn btn-sm tooltip tooltip-left border-base-300 bg-base-100 shadow-md hover:bg-base-200"
 								data-tip="現在位置"
 							>
 								<svg
@@ -510,7 +510,7 @@
 								</svg>
 							</button>
 							<button
-								class="btn btn-sm tooltip tooltip-left border-slate-300 bg-white shadow-md hover:bg-slate-50"
+								class="btn btn-sm tooltip tooltip-left border-base-300 bg-base-100 shadow-md hover:bg-base-200"
 								data-tip="ルート最適化"
 							>
 								<svg
@@ -534,7 +534,7 @@
 								</svg>
 							</button>
 							<button
-								class="btn btn-sm tooltip tooltip-left border-slate-300 bg-white shadow-md hover:bg-slate-50"
+								class="btn btn-sm tooltip tooltip-left border-base-300 bg-base-100 shadow-md hover:bg-base-200"
 								data-tip="全画面表示"
 							>
 								<svg
@@ -557,8 +557,8 @@
 
 					<!-- 凡例（機能拡張） -->
 					<div class="absolute bottom-4 left-4 z-10">
-						<div class="rounded-lg bg-white p-3 text-xs shadow-md">
-							<div class="mb-2 flex items-center gap-1 font-medium text-slate-700">
+						<div class="rounded-lg bg-base-100 p-3 text-xs shadow-md">
+							<div class="mb-2 flex items-center gap-1 font-medium text-base-content/80">
 								🎯 配送状況
 								<span class="text-green-500">●</span>
 							</div>
@@ -570,31 +570,31 @@
 										🏢
 									</div>
 									<span>倉庫</span>
-									<span class="text-xs text-slate-500">({warehouseData.length})</span>
+									<span class="text-xs text-base-content/60">({warehouseData.length})</span>
 								</div>
 								<div class="flex items-center gap-2">
-									<div class="h-3 w-3 rounded-full bg-blue-500"></div>
+									<div class="h-3 w-3 rounded-full bg-info"></div>
 									<span>配送中</span>
-									<span class="text-xs text-slate-500">({deliveryStats.inTransit || 0})</span>
+									<span class="text-xs text-base-content/60">({deliveryStats.inTransit || 0})</span>
 								</div>
 								<div class="flex items-center gap-2">
-									<div class="h-3 w-3 rounded-full bg-orange-500"></div>
+									<div class="h-3 w-3 rounded-full bg-warning"></div>
 									<span>準備中</span>
-									<span class="text-xs text-slate-500">({deliveryStats.pending || 0})</span>
+									<span class="text-xs text-base-content/60">({deliveryStats.pending || 0})</span>
 								</div>
 								<div class="flex items-center gap-2">
-									<div class="h-3 w-3 animate-pulse rounded-full bg-red-500"></div>
+									<div class="h-3 w-3 animate-pulse rounded-full bg-error"></div>
 									<span>遅延</span>
-									<span class="text-xs text-red-500">({deliveryStats.delayed || 0})</span>
+									<span class="text-xs text-error">({deliveryStats.delayed || 0})</span>
 								</div>
 								<div class="flex items-center gap-2">
-									<div class="h-3 w-3 rounded-full bg-green-500"></div>
+									<div class="h-3 w-3 rounded-full bg-success"></div>
 									<span>完了</span>
-									<span class="text-xs text-slate-500">({deliveryStats.delivered || 0})</span>
+									<span class="text-xs text-base-content/60">({deliveryStats.delivered || 0})</span>
 								</div>
 							</div>
-							<div class="mt-2 border-t border-slate-200 pt-2">
-								<div class="text-xs text-slate-500">
+							<div class="mt-2 border-t border-base-300 pt-2">
+								<div class="text-xs text-base-content/60">
 									🚛 稼働車両: {vehicleData.filter((v) => v.status === 'in_use')
 										.length}/{vehicleData.length}台
 								</div>
@@ -604,15 +604,15 @@
 
 					<!-- パフォーマンス指標 -->
 					<div class="absolute top-16 right-4 z-10">
-						<div class="rounded-lg bg-white p-2 text-xs shadow-md">
-							<div class="font-medium text-green-600">配送効率</div>
-							<div class="text-lg font-bold text-slate-900">
+						<div class="rounded-lg bg-base-100 p-2 text-xs shadow-md">
+							<div class="font-medium text-success">配送効率</div>
+							<div class="text-lg font-bold text-base-content">
 								{(
 									((deliveryStats.delivered || 0) / Math.max(1, deliveryStats.total || 1)) *
 									100
 								).toFixed(1)}%
 							</div>
-							<div class="text-slate-500">成功率</div>
+							<div class="text-base-content/60">成功率</div>
 						</div>
 					</div>
 				</div>
@@ -620,18 +620,18 @@
 
 			<!-- 配送リスト -->
 			<div class="space-y-4">
-				<h4 class="font-medium text-slate-800">配送リスト</h4>
+				<h4 class="font-medium text-base-content/90">配送リスト</h4>
 				<div class="max-h-80 space-y-2 overflow-y-auto">
 					{#each getFilteredDeliveries().slice(0, 20) as delivery}
 						<div
-							class="cursor-pointer rounded-lg border border-slate-200 p-3 transition-colors hover:bg-slate-50 {selectedDelivery?.id ===
+							class="cursor-pointer rounded-lg border border-base-300 p-3 transition-colors hover:bg-base-200 {selectedDelivery?.id ===
 							delivery.id
-								? 'bg-blue-50 ring-2 ring-blue-500'
+								? 'bg-primary/10 ring-2 ring-primary'
 								: ''}"
 							onclick={() => handleDeliverySelect(delivery)}
 						>
 							<div class="mb-2 flex items-center justify-between">
-								<div class="text-sm font-medium text-slate-900">
+								<div class="text-sm font-medium text-base-content">
 									{delivery.orderId}
 								</div>
 								<div class="badge badge-{getStatusColor(delivery.status)} badge-sm">
@@ -639,7 +639,7 @@
 								</div>
 							</div>
 
-							<div class="space-y-1 text-xs text-slate-600">
+							<div class="space-y-1 text-xs text-base-content/70">
 								<div class="flex items-center gap-1">
 									<span>{getVehicleIcon(delivery.vehicle.type)}</span>
 									<span>{delivery.vehicle.licensePlate}</span>
@@ -660,11 +660,11 @@
 
 		<!-- 選択された配送の詳細 -->
 		{#if selectedDelivery}
-			<div class="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
-				<h4 class="mb-3 font-medium text-blue-900">配送詳細: {selectedDelivery.orderId}</h4>
+			<div class="mt-6 rounded-lg border border-info/30 bg-info/10 p-4">
+				<h4 class="mb-3 font-medium text-base-content">配送詳細: {selectedDelivery.orderId}</h4>
 				<div class="grid grid-cols-1 gap-4 text-sm md:grid-cols-3">
 					<div>
-						<div class="font-medium text-blue-700">車両情報</div>
+						<div class="font-medium text-base-content">車両情報</div>
 						<div>
 							{getVehicleIcon(selectedDelivery.vehicle.type)}
 							{selectedDelivery.vehicle.licensePlate}
@@ -673,13 +673,13 @@
 						<div>積載: {selectedDelivery.vehicle.capacityKg}kg</div>
 					</div>
 					<div>
-						<div class="font-medium text-blue-700">配送情報</div>
+						<div class="font-medium text-base-content">配送情報</div>
 						<div>📍 {selectedDelivery.destination.address}</div>
 						<div>🏠 {selectedDelivery.destination.customerName}</div>
 						<div>📦 {selectedDelivery.items} アイテム</div>
 					</div>
 					<div>
-						<div class="font-medium text-blue-700">時間情報</div>
+						<div class="font-medium text-base-content">時間情報</div>
 						<div>
 							⏰ 予定: {new Date(selectedDelivery.estimatedArrival).toLocaleTimeString('ja-JP')}
 						</div>

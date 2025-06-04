@@ -145,13 +145,13 @@
 	}
 </script>
 
-<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
 	<!-- ヘッダー -->
 	<div class="mb-6 flex items-center justify-between">
 		<div>
-			<h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+			<h3 class="flex items-center gap-2 text-lg font-semibold text-base-content">
 				<div
-					class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 text-white"
+					class="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-content"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -170,7 +170,7 @@
 				</div>
 				倉庫使用状況
 			</h3>
-			<p class="mt-1 text-sm text-slate-600">容量管理とアラート監視</p>
+			<p class="mt-1 text-sm text-base-content/70">容量管理とアラート監視</p>
 		</div>
 
 		<div class="flex items-center gap-3">
@@ -213,13 +213,13 @@
 		<div class="flex h-64 items-center justify-center">
 			<div class="text-center">
 				<span class="loading loading-spinner loading-lg text-primary"></span>
-				<p class="mt-2 text-sm text-slate-600">倉庫データを読み込み中...</p>
+				<p class="mt-2 text-sm text-base-content/70">倉庫データを読み込み中...</p>
 			</div>
 		</div>
 	{:else if warehouseData.length === 0}
 		<!-- データなし状態 -->
 		<div class="flex h-64 items-center justify-center">
-			<div class="text-center text-slate-500">
+			<div class="text-center text-base-content/60">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -242,25 +242,25 @@
 		<!-- 倉庫一覧 -->
 		<div class="space-y-4">
 			<!-- 全体サマリー -->
-			<div class="grid grid-cols-1 gap-4 rounded-lg bg-slate-50 p-4 md:grid-cols-4">
+			<div class="grid grid-cols-1 gap-4 rounded-lg bg-base-200 p-4 md:grid-cols-4">
 				<div class="text-center">
-					<div class="text-2xl font-bold text-slate-900">{warehouseData.length}</div>
-					<div class="text-sm text-slate-600">総倉庫数</div>
+					<div class="text-2xl font-bold text-base-content">{warehouseData.length}</div>
+					<div class="text-sm text-base-content/70">総倉庫数</div>
 				</div>
 				<div class="text-center">
 					<div class="text-2xl font-bold text-green-600">
 						{warehouseData.filter((w) => w.status === 'active').length}
 					</div>
-					<div class="text-sm text-slate-600">稼働中</div>
+					<div class="text-sm text-base-content/70">稼働中</div>
 				</div>
 				<div class="text-center">
-					<div class="text-2xl font-bold text-slate-900">
+					<div class="text-2xl font-bold text-base-content">
 						{(
 							warehouseData.reduce((sum, w) => sum + w.currentUtilization, 0) /
 								warehouseData.length || 0
 						).toFixed(1)}%
 					</div>
-					<div class="text-sm text-slate-600">平均使用率</div>
+					<div class="text-sm text-base-content/70">平均使用率</div>
 				</div>
 				<div class="text-center">
 					<div class="text-2xl font-bold text-orange-600">
@@ -268,7 +268,7 @@
 							w.alerts.some((a) => a.type === 'critical' || a.type === 'warning')
 						).length}
 					</div>
-					<div class="text-sm text-slate-600">要注意倉庫</div>
+					<div class="text-sm text-base-content/70">要注意倉庫</div>
 				</div>
 			</div>
 
@@ -276,17 +276,17 @@
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 				{#each warehouseData.slice(0, 6) as warehouse}
 					<div
-						class="cursor-pointer rounded-lg border border-slate-200 p-4 transition-all duration-200 hover:shadow-md {selectedWarehouse?.id ===
+						class="cursor-pointer rounded-lg border border-base-300 p-4 transition-all duration-200 hover:shadow-md {selectedWarehouse?.id ===
 						warehouse.id
-							? 'bg-blue-50 ring-2 ring-blue-500'
-							: 'hover:bg-slate-50'}"
+							? 'bg-primary/10 ring-2 ring-primary'
+							: 'hover:bg-base-200'}"
 						onclick={() => handleWarehouseSelect(warehouse)}
 					>
 						<!-- 倉庫ヘッダー -->
 						<div class="mb-3 flex items-center justify-between">
 							<div class="flex items-center gap-2">
 								<span class="text-lg">{warehouse.statusIcon}</span>
-								<h4 class="font-semibold text-slate-900">{warehouse.name}</h4>
+								<h4 class="font-semibold text-base-content">{warehouse.name}</h4>
 							</div>
 							<div class="flex items-center gap-2">
 								<div class="badge badge-{getStatusColor(warehouse.status)} badge-sm">
@@ -301,9 +301,9 @@
 						<!-- 使用率プログレスバー -->
 						<div class="mb-3">
 							<div class="mb-1 flex items-center justify-between">
-								<span class="text-sm text-slate-600">使用率</span>
+								<span class="text-sm text-base-content/70">使用率</span>
 								<div class="flex items-center gap-2">
-									<span class="text-sm font-medium text-slate-900"
+									<span class="text-sm font-medium text-base-content"
 										>{warehouse.currentUtilization.toFixed(1)}%</span
 									>
 									<span
@@ -323,19 +323,19 @@
 						<!-- 倉庫詳細情報 -->
 						<div class="grid grid-cols-2 gap-4 text-sm">
 							<div>
-								<div class="text-slate-600">総容量</div>
+								<div class="text-base-content/70">総容量</div>
 								<div class="font-medium">{formatCapacity(warehouse.capacity)}</div>
 							</div>
 							<div>
-								<div class="text-slate-600">利用可能</div>
+								<div class="text-base-content/70">利用可能</div>
 								<div class="font-medium">{formatCapacity(calculateAvailableSpace(warehouse))}</div>
 							</div>
 							<div>
-								<div class="text-slate-600">責任者</div>
+								<div class="text-base-content/70">責任者</div>
 								<div class="font-medium">{warehouse.manager}</div>
 							</div>
 							<div>
-								<div class="text-slate-600">月間処理量</div>
+								<div class="text-base-content/70">月間処理量</div>
 								<div class="font-medium">{warehouse.monthlyThroughput?.toLocaleString()}</div>
 							</div>
 						</div>
@@ -360,7 +360,7 @@
 						<!-- カテゴリ表示 -->
 						{#if warehouse.categories}
 							<div class="mt-3">
-								<div class="mb-1 text-xs text-slate-600">取扱カテゴリ</div>
+								<div class="mb-1 text-xs text-base-content/70">取扱カテゴリ</div>
 								<div class="flex flex-wrap gap-1">
 									{#each warehouse.categories as category}
 										<span class="badge badge-outline badge-xs">
@@ -378,9 +378,9 @@
 			<!-- 追加倉庫表示ボタン -->
 			{#if warehouseData.length > 6}
 				<div class="mt-4 text-center">
-					<div class="rounded-lg bg-slate-100 p-3">
-						<div class="mb-2 text-sm text-slate-600">
-							他に <span class="font-bold text-slate-900">{warehouseData.length - 6}箇所</span> の倉庫があります
+					<div class="rounded-lg bg-base-200 p-3">
+						<div class="mb-2 text-sm text-base-content/70">
+							他に <span class="font-bold text-base-content">{warehouseData.length - 6}箇所</span> の倉庫があります
 						</div>
 						<button class="btn btn-outline btn-primary btn-sm">
 							すべての倉庫を表示 ({warehouseData.length}箇所)
@@ -391,17 +391,17 @@
 
 			<!-- 選択された倉庫の詳細情報 -->
 			{#if selectedWarehouse}
-				<div class="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-6">
-					<h4 class="mb-4 font-semibold text-blue-900">詳細情報: {selectedWarehouse.name}</h4>
+				<div class="mt-6 rounded-lg border border-primary/30 bg-primary/10 p-6">
+					<h4 class="mb-4 font-semibold text-primary-content">詳細情報: {selectedWarehouse.name}</h4>
 
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 						<!-- 基本情報 -->
 						<div>
-							<h5 class="mb-2 font-medium text-blue-800">基本情報</h5>
+							<h5 class="mb-2 font-medium text-primary">基本情報</h5>
 							<div class="space-y-2 text-sm">
 								<div><span class="text-blue-700">住所:</span> {selectedWarehouse.address}</div>
 								<div>
-									<span class="text-blue-700">座標:</span>
+									<span class="text-primary-content/70">座標:</span>
 									{selectedWarehouse.location.lat.toFixed(4)}, {selectedWarehouse.location.lng.toFixed(
 										4
 									)}
@@ -413,24 +413,24 @@
 
 						<!-- 容量情報 -->
 						<div>
-							<h5 class="mb-2 font-medium text-blue-800">容量情報</h5>
+							<h5 class="mb-2 font-medium text-primary">容量情報</h5>
 							<div class="space-y-2 text-sm">
 								<div>
-									<span class="text-blue-700">総容量:</span>
+									<span class="text-primary-content/70">総容量:</span>
 									{selectedWarehouse.capacity.toLocaleString()}
 								</div>
 								<div>
-									<span class="text-blue-700">使用中:</span>
+									<span class="text-primary-content/70">使用中:</span>
 									{((selectedWarehouse.capacity * selectedWarehouse.currentUtilization) / 100)
 										.toFixed(0)
 										.toLocaleString()}
 								</div>
 								<div>
-									<span class="text-blue-700">利用可能:</span>
+									<span class="text-primary-content/70">利用可能:</span>
 									{calculateAvailableSpace(selectedWarehouse).toFixed(0).toLocaleString()}
 								</div>
 								<div>
-									<span class="text-blue-700">使用率:</span>
+									<span class="text-primary-content/70">使用率:</span>
 									{selectedWarehouse.currentUtilization.toFixed(2)}%
 								</div>
 							</div>
@@ -438,18 +438,18 @@
 
 						<!-- 運用情報 -->
 						<div>
-							<h5 class="mb-2 font-medium text-blue-800">運用情報</h5>
+							<h5 class="mb-2 font-medium text-primary">運用情報</h5>
 							<div class="space-y-2 text-sm">
 								<div>
-									<span class="text-blue-700">月間処理量:</span>
+									<span class="text-primary-content/70">月間処理量:</span>
 									{selectedWarehouse.monthlyThroughput?.toLocaleString()}
 								</div>
 								<div>
-									<span class="text-blue-700">最終更新:</span>
+									<span class="text-primary-content/70">最終更新:</span>
 									{new Date(selectedWarehouse.lastUpdated).toLocaleString('ja-JP')}
 								</div>
 								<div>
-									<span class="text-blue-700">アラート数:</span>
+									<span class="text-primary-content/70">アラート数:</span>
 									{selectedWarehouse.alerts.length}
 								</div>
 							</div>
@@ -459,7 +459,7 @@
 			{/if}
 
 			<!-- 最終更新時刻 -->
-			<div class="mt-4 text-center text-xs text-slate-500">
+			<div class="mt-4 text-center text-xs text-base-content/60">
 				最終更新: {new Date(lastUpdated).toLocaleString('ja-JP')}
 			</div>
 		</div>

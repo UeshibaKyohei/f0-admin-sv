@@ -215,16 +215,16 @@ export const isFeatureEnabled = (flagName) => {
  * 在庫・物流ダッシュボード特有のUI設定
  */
 export const uiConfig = {
-	// カラーパレット（在庫・物流テーマ）
+	// カラーパレット（DaisyUIテーマ対応）
 	COLORS: {
-		WAREHOUSE: '#10b981', // 倉庫：グリーン
-		IN_TRANSIT: '#3b82f6', // 配送中：ブルー
-		DELIVERED: '#22c55e', // 配送完了：グリーン
-		DELAYED: '#f59e0b', // 遅延：オレンジ
-		FAILED: '#ef4444', // 失敗：レッド
-		LOW_STOCK: '#f59e0b', // 低在庫：オレンジ
-		OUT_OF_STOCK: '#ef4444', // 在庫切れ：レッド
-		OVERSTOCK: '#8b5cf6' // 過剰在庫：パープル
+		WAREHOUSE: 'oklch(var(--su))', // 倉庫：成功色
+		IN_TRANSIT: 'oklch(var(--in))', // 配送中：情報色
+		DELIVERED: 'oklch(var(--su))', // 配送完了：成功色
+		DELAYED: 'oklch(var(--wa))', // 遅延：警告色
+		FAILED: 'oklch(var(--er))', // 失敗：エラー色
+		LOW_STOCK: 'oklch(var(--wa))', // 低在庫：警告色
+		OUT_OF_STOCK: 'oklch(var(--er))', // 在庫切れ：エラー色
+		OVERSTOCK: 'oklch(var(--ac))' // 過剰在庫：アクセント色
 	},
 
 	// アニメーション設定

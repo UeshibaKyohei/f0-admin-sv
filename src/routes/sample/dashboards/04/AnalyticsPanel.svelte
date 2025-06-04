@@ -52,11 +52,11 @@
 	}
 
 	function getOptimizationScore(value) {
-		if (value >= 90) return { score: 'A', color: 'text-green-600', bg: 'bg-green-100' };
-		if (value >= 80) return { score: 'B', color: 'text-blue-600', bg: 'bg-blue-100' };
-		if (value >= 70) return { score: 'C', color: 'text-yellow-600', bg: 'bg-yellow-100' };
-		if (value >= 60) return { score: 'D', color: 'text-orange-600', bg: 'bg-orange-100' };
-		return { score: 'F', color: 'text-red-600', bg: 'bg-red-100' };
+		if (value >= 90) return { score: 'A', color: 'text-success', bg: 'bg-success/20' };
+		if (value >= 80) return { score: 'B', color: 'text-info', bg: 'bg-info/20' };
+		if (value >= 70) return { score: 'C', color: 'text-warning', bg: 'bg-warning/20' };
+		if (value >= 60) return { score: 'D', color: 'text-error', bg: 'bg-error/20' };
+		return { score: 'F', color: 'text-error', bg: 'bg-error/20' };
 	}
 
 	function formatCurrency(value) {
@@ -94,7 +94,7 @@
 	<!-- ヘッダー -->
 	<div class="flex items-center justify-between">
 		<div>
-			<h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+			<h3 class="flex items-center gap-2 text-lg font-semibold text-base-content">
 				<div
 					class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 text-white"
 				>
@@ -115,19 +115,19 @@
 				</div>
 				AI分析・予測ダッシュボード
 			</h3>
-			<p class="mt-1 text-sm text-slate-600">機械学習による需要予測と最適化提案</p>
+			<p class="mt-1 text-sm text-base-content/70">機械学習による需要予測と最適化提案</p>
 		</div>
 
 		<div class="flex items-center gap-3">
 			<!-- 分析タイプ選択 -->
-			<select class="select select-bordered select-sm bg-white" bind:value={selectedMetric}>
+			<select class="select select-bordered select-sm bg-base-100" bind:value={selectedMetric}>
 				{#each analyticsTypes as type}
 					<option value={type.id}>{type.icon} {type.name}</option>
 				{/each}
 			</select>
 
 			<!-- 期間選択 -->
-			<select class="select select-bordered select-sm bg-white" bind:value={selectedTimeRange}>
+			<select class="select select-bordered select-sm bg-base-100" bind:value={selectedTimeRange}>
 				{#each timeRangeOptions as range}
 					<option value={range.id}>{range.icon} {range.name}</option>
 				{/each}
@@ -140,7 +140,7 @@
 		<div class="flex h-64 items-center justify-center">
 			<div class="text-center">
 				<span class="loading loading-spinner loading-lg text-primary"></span>
-				<p class="mt-2 text-sm text-slate-600">AI分析データを処理中...</p>
+				<p class="mt-2 text-sm text-base-content/70">AI分析データを処理中...</p>
 			</div>
 		</div>
 	{:else}
@@ -149,20 +149,20 @@
 			<!-- 予測サマリー -->
 			<div class="space-y-6 lg:col-span-2">
 				<!-- AI予測結果 -->
-				<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+				<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
 					<div class="mb-4 flex items-center justify-between">
-						<h4 class="flex items-center gap-2 font-semibold text-slate-900">
+						<h4 class="flex items-center gap-2 font-semibold text-base-content">
 							🤖 AI予測結果
 							<span class="badge badge-success badge-sm">信頼度: 94.2%</span>
 						</h4>
-						<div class="text-xs text-slate-500">更新: 5分前</div>
+						<div class="text-xs text-base-content/60">更新: 5分前</div>
 					</div>
 
 					{#if selectedMetric === 'demand'}
 						<!-- 需要予測 -->
 						<div class="space-y-4">
-							<div class="rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
-								<div class="mb-2 text-lg font-bold text-slate-900">今後30日間の需要予測</div>
+							<div class="rounded-lg bg-gradient-to-r from-info/20 to-primary/20 p-4">
+								<div class="mb-2 text-lg font-bold text-base-content">今後30日間の需要予測</div>
 								<div class="grid grid-cols-3 gap-4 text-sm">
 									<div>
 										<div class="font-medium text-green-600">予想売上</div>
@@ -170,9 +170,9 @@
 										<div class="text-xs text-green-600">前月比 +15.2%</div>
 									</div>
 									<div>
-										<div class="font-medium text-blue-600">ピーク需要日</div>
+										<div class="font-medium text-info">ピーク需要日</div>
 										<div class="text-xl font-bold">3/15 (金)</div>
-										<div class="text-xs text-blue-600">給料日効果</div>
+										<div class="text-xs text-info">給料日効果</div>
 									</div>
 									<div>
 										<div class="font-medium text-purple-600">推奨発注</div>
@@ -183,8 +183,8 @@
 							</div>
 
 							<!-- トレンドチャート（疑似） -->
-							<div class="flex h-48 items-center justify-center rounded-lg bg-slate-50 p-4">
-								<div class="text-center text-slate-500">
+							<div class="flex h-48 items-center justify-center rounded-lg bg-base-200 p-4">
+								<div class="text-center text-base-content/60">
 									<div
 										class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-purple-100"
 									>
@@ -197,10 +197,10 @@
 
 							<!-- 商品別予測 -->
 							<div>
-								<h5 class="mb-3 font-medium text-slate-800">高需要予測商品 TOP 5</h5>
+								<h5 class="mb-3 font-medium text-base-content/90">高需要予測商品 TOP 5</h5>
 								<div class="space-y-2">
 									{#each [{ name: 'iPhone 15 Pro', growth: '+28.5%', demand: 'HIGH', category: 'electronics' }, { name: 'ユニクロ Tシャツ', growth: '+22.1%', demand: 'HIGH', category: 'clothing' }, { name: 'コシヒカリ 5kg', growth: '+18.7%', demand: 'MEDIUM', category: 'food' }, { name: 'Nintendo Switch', growth: '+15.3%', demand: 'MEDIUM', category: 'electronics' }, { name: 'レゴ クリエイター', growth: '+12.9%', demand: 'MEDIUM', category: 'toys' }] as product, index}
-										<div class="flex items-center justify-between rounded-lg bg-slate-50 p-3">
+										<div class="flex items-center justify-between rounded-lg bg-base-200 p-3">
 											<div class="flex items-center gap-3">
 												<div
 													class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-400 to-pink-500 text-xs font-bold text-white"
@@ -208,8 +208,8 @@
 													{index + 1}
 												</div>
 												<div>
-													<div class="font-medium text-slate-900">{product.name}</div>
-													<div class="text-xs text-slate-500">
+													<div class="font-medium text-base-content">{product.name}</div>
+													<div class="text-xs text-base-content/60">
 														{config.PRODUCT_CATEGORIES[product.category]?.icon}
 														{product.category}
 													</div>
@@ -234,7 +234,7 @@
 						<!-- ルート最適化 -->
 						<div class="space-y-4">
 							<div class="rounded-lg bg-gradient-to-r from-orange-50 to-red-50 p-4">
-								<div class="mb-2 text-lg font-bold text-slate-900">配送ルート最適化提案</div>
+								<div class="mb-2 text-lg font-bold text-base-content">配送ルート最適化提案</div>
 								<div class="grid grid-cols-3 gap-4 text-sm">
 									<div>
 										<div class="font-medium text-green-600">削減可能距離</div>
@@ -276,7 +276,7 @@
 						<!-- 在庫最適化 -->
 						<div class="space-y-4">
 							<div class="rounded-lg bg-gradient-to-r from-green-50 to-emerald-50 p-4">
-								<div class="mb-2 text-lg font-bold text-slate-900">在庫最適化提案</div>
+								<div class="mb-2 text-lg font-bold text-base-content">在庫最適化提案</div>
 								<div class="grid grid-cols-3 gap-4 text-sm">
 									<div>
 										<div class="font-medium text-green-600">在庫削減額</div>
@@ -298,23 +298,23 @@
 
 							<!-- 在庫レベル提案 -->
 							<div>
-								<h5 class="mb-3 font-medium text-slate-800">適正在庫レベル提案</h5>
+								<h5 class="mb-3 font-medium text-base-content/90">適正在庫レベル提案</h5>
 								<div class="space-y-3">
 									{#each [{ category: 'electronics', current: 15000, optimal: 12500, reduction: 2500 }, { category: 'clothing', current: 8500, optimal: 10200, increase: 1700 }, { category: 'food', current: 25000, optimal: 18000, reduction: 7000 }, { category: 'furniture', current: 3200, optimal: 2800, reduction: 400 }] as item}
-										<div class="flex items-center justify-between rounded-lg bg-slate-50 p-3">
+										<div class="flex items-center justify-between rounded-lg bg-base-200 p-3">
 											<div class="flex items-center gap-3">
 												<div class="text-lg">
 													{config.PRODUCT_CATEGORIES[item.category]?.icon || '📦'}
 												</div>
 												<div>
-													<div class="font-medium text-slate-900 capitalize">{item.category}</div>
-													<div class="text-xs text-slate-500">
+													<div class="font-medium text-base-content capitalize">{item.category}</div>
+													<div class="text-xs text-base-content/60">
 														現在: {item.current.toLocaleString()}点
 													</div>
 												</div>
 											</div>
 											<div class="text-right">
-												<div class="font-bold text-slate-900">
+												<div class="font-bold text-base-content">
 													{item.optimal.toLocaleString()}点
 												</div>
 												<div class="text-xs {item.reduction ? 'text-green-600' : 'text-blue-600'}">
@@ -332,7 +332,7 @@
 						<!-- コスト分析 -->
 						<div class="space-y-4">
 							<div class="rounded-lg bg-gradient-to-r from-yellow-50 to-orange-50 p-4">
-								<div class="mb-2 text-lg font-bold text-slate-900">コスト最適化提案</div>
+								<div class="mb-2 text-lg font-bold text-base-content">コスト最適化提案</div>
 								<div class="grid grid-cols-3 gap-4 text-sm">
 									<div>
 										<div class="font-medium text-green-600">総削減可能額</div>
@@ -355,18 +355,18 @@
 							<!-- コスト内訳 -->
 							<div class="grid grid-cols-2 gap-4">
 								{#each [{ name: '配送費', current: 2800000, optimized: 2350000, category: '物流' }, { name: '倉庫費', current: 1200000, optimized: 980000, category: '保管' }, { name: '人件費', current: 3500000, optimized: 3200000, category: '労務' }, { name: '燃料費', current: 850000, optimized: 680000, category: '運輸' }] as cost}
-									<div class="rounded-lg border border-slate-200 bg-white p-4">
+									<div class="rounded-lg border border-base-300 bg-base-100 p-4">
 										<div class="mb-2 flex items-center justify-between">
-											<div class="font-medium text-slate-900">{cost.name}</div>
-											<div class="text-xs text-slate-500">{cost.category}</div>
+											<div class="font-medium text-base-content">{cost.name}</div>
+											<div class="text-xs text-base-content/60">{cost.category}</div>
 										</div>
 										<div class="space-y-1 text-sm">
 											<div class="flex justify-between">
-												<span class="text-slate-600">現在:</span>
+												<span class="text-base-content/70">現在:</span>
 												<span class="font-medium">{formatCurrency(cost.current)}</span>
 											</div>
 											<div class="flex justify-between">
-												<span class="text-slate-600">最適化後:</span>
+												<span class="text-base-content/70">最適化後:</span>
 												<span class="font-medium text-green-600"
 													>{formatCurrency(cost.optimized)}</span
 												>
@@ -386,8 +386,8 @@
 				</div>
 
 				<!-- 実行可能なアクション -->
-				<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-					<h4 class="mb-4 flex items-center gap-2 font-semibold text-slate-900">
+				<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
+					<h4 class="mb-4 flex items-center gap-2 font-semibold text-base-content">
 						⚡ 今すぐ実行可能なアクション
 						<span class="badge badge-warning badge-sm">優先度: HIGH</span>
 					</h4>
@@ -395,7 +395,7 @@
 					<div class="space-y-3">
 						{#each [{ action: '在庫アラート設定の最適化', impact: '欠品率-30%', effort: '低', timeline: '即時', description: 'AI予測に基づく動的な再注文ポイントの設定' }, { action: '配送ルートの統合', impact: 'コスト-15%', effort: '中', timeline: '1週間', description: '近隣エリアの配送を統合し効率化' }, { action: '季節商品の事前発注', impact: '売上+12%', effort: '中', timeline: '2週間', description: '春夏商品の需要予測に基づく事前発注' }, { action: '倉庫レイアウトの改善', impact: '作業効率+25%', effort: '高', timeline: '1ヶ月', description: 'ピッキング効率を考慮したレイアウト変更' }] as action, index}
 							<div
-								class="rounded-lg border border-slate-200 p-4 transition-colors hover:bg-slate-50"
+								class="rounded-lg border border-base-300 p-4 transition-colors hover:bg-base-200"
 							>
 								<div class="flex items-start justify-between">
 									<div class="flex-1">
@@ -405,9 +405,9 @@
 											>
 												{index + 1}
 											</div>
-											<h5 class="font-medium text-slate-900">{action.action}</h5>
+											<h5 class="font-medium text-base-content">{action.action}</h5>
 										</div>
-										<p class="mb-2 text-sm text-slate-600">{action.description}</p>
+										<p class="mb-2 text-sm text-base-content/70">{action.description}</p>
 										<div class="flex items-center gap-4 text-xs">
 											<span class="rounded-full bg-green-100 px-2 py-1 text-green-700"
 												>効果: {action.impact}</span
@@ -431,17 +431,17 @@
 			<!-- サイドパネル -->
 			<div class="space-y-6">
 				<!-- 最適化スコア -->
-				<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-					<h4 class="mb-4 flex items-center gap-2 font-semibold text-slate-900">🎯 最適化スコア</h4>
+				<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
+					<h4 class="mb-4 flex items-center gap-2 font-semibold text-base-content">🎯 最適化スコア</h4>
 
 					<div class="space-y-4">
 						{#each [{ name: '在庫効率', score: 87.2 }, { name: '配送効率', score: 92.1 }, { name: 'コスト効率', score: 78.5 }, { name: '予測精度', score: 94.8 }] as metric}
 							{@const scoreData = getOptimizationScore(metric.score)}
 							<div>
 								<div class="mb-2 flex items-center justify-between">
-									<span class="text-sm font-medium text-slate-700">{metric.name}</span>
+									<span class="text-sm font-medium text-base-content/80">{metric.name}</span>
 									<div class="flex items-center gap-2">
-										<span class="text-sm font-bold text-slate-900">{metric.score.toFixed(1)}</span>
+										<span class="text-sm font-bold text-base-content">{metric.score.toFixed(1)}</span>
 										<div
 											class="h-8 w-8 {scoreData.bg} {scoreData.color} flex items-center justify-center rounded-full text-xs font-bold"
 										>
@@ -464,8 +464,8 @@
 				</div>
 
 				<!-- AIインサイト -->
-				<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-					<h4 class="mb-4 flex items-center gap-2 font-semibold text-slate-900">🧠 AIインサイト</h4>
+				<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
+					<h4 class="mb-4 flex items-center gap-2 font-semibold text-base-content">🧠 AIインサイト</h4>
 
 					<div class="space-y-4 text-sm">
 						<div class="rounded-lg border-l-4 border-blue-400 bg-blue-50 p-3">
@@ -495,8 +495,8 @@
 				</div>
 
 				<!-- 緊急アラート -->
-				<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-					<h4 class="mb-4 flex items-center gap-2 font-semibold text-slate-900">🚨 緊急アラート</h4>
+				<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
+					<h4 class="mb-4 flex items-center gap-2 font-semibold text-base-content">🚨 緊急アラート</h4>
 
 					<div class="space-y-3">
 						<div class="rounded-lg border border-red-200 bg-red-50 p-3">

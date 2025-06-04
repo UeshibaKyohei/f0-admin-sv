@@ -169,10 +169,10 @@
 	}
 </script>
 
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+<div class="min-h-screen bg-base-100">
 	{#if isFeatureEnabled('SHOW_SAMPLE_DELIVERIES')}
 		<!-- リアルタイム状況バナー -->
-		<div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 px-4 py-2 text-white">
+		<div class="bg-primary px-4 py-2 text-primary-content">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center gap-3">
 					<div class="flex items-center gap-2">
@@ -191,13 +191,13 @@
 	{/if}
 
 	<!-- メインヘッダー -->
-	<div class="border-b border-slate-200 bg-white shadow-sm">
+	<div class="border-b border-base-300 bg-base-200 shadow-sm">
 		<div class="px-4 py-4 lg:px-6">
 			<div class="flex items-center justify-between">
 				<!-- タイトルセクション -->
 				<div class="flex items-center gap-4">
 					<div
-						class="rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 p-3 text-white shadow-lg"
+						class="rounded-xl bg-primary p-3 text-primary-content shadow-lg"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -216,11 +216,11 @@
 					</div>
 					<div>
 						<h1
-							class="bg-gradient-to-r from-blue-700 to-indigo-700 bg-clip-text text-2xl font-bold text-transparent lg:text-3xl"
+							class="text-2xl font-bold text-base-content lg:text-3xl"
 						>
 							在庫・物流管理
 						</h1>
-						<p class="mt-1 text-sm text-slate-600">リアルタイム監視と最適化システム</p>
+						<p class="mt-1 text-sm text-base-content/70">リアルタイム監視と最適化システム</p>
 					</div>
 					{#if isLoading}
 						<div class="ml-4">
@@ -260,8 +260,8 @@
 							>
 								<div class="p-3">
 									<div class="mb-3 flex items-center justify-between">
-										<h3 class="font-semibold text-slate-900">🚨 アクティブアラート</h3>
-										<span class="text-xs text-slate-500">{activeAlerts.length}件の未処理</span>
+										<h3 class="font-semibold text-base-content">🚨 アクティブアラート</h3>
+										<span class="text-xs text-base-content/60">{activeAlerts.length}件の未処理</span>
 									</div>
 
 									<!-- 上位5件のアラート -->
@@ -306,9 +306,9 @@
 
 									<!-- 追加アラートの通知 -->
 									{#if activeAlerts.length > 5}
-										<div class="mt-3 rounded-lg bg-slate-100 p-2 text-center">
-											<div class="text-sm text-slate-600">
-												他に <span class="font-bold text-slate-900"
+										<div class="mt-3 rounded-lg bg-base-200 p-2 text-center">
+											<div class="text-sm text-base-content/70">
+												他に <span class="font-bold text-base-content"
 													>{activeAlerts.length - 5}件</span
 												> のアラートがあります
 											</div>
@@ -320,7 +320,7 @@
 
 									<!-- アクション -->
 									{#if activeAlerts.length > 1}
-										<div class="mt-3 border-t border-slate-200 pt-3">
+										<div class="mt-3 border-t border-base-300 pt-3">
 											<button
 												class="btn btn-sm btn-outline w-full"
 												onclick={() => {
@@ -338,9 +338,9 @@
 
 					<!-- 時間範囲選択 -->
 					<div class="flex items-center gap-2">
-						<span class="hidden text-sm text-slate-600 sm:inline">期間:</span>
+						<span class="hidden text-sm text-base-content/70 sm:inline">期間:</span>
 						<select
-							class="select select-bordered select-sm bg-white"
+							class="select select-bordered select-sm"
 							bind:value={selectedTimeRange}
 							onchange={refreshData}
 						>
@@ -382,14 +382,14 @@
 	</div>
 
 	<!-- ナビゲーションタブ -->
-	<div class="border-b border-slate-200 bg-white">
+	<div class="border-b border-base-300 bg-base-200">
 		<div class="px-4 lg:px-6">
 			<div class="flex space-x-8">
 				<button
 					class="cursor-pointer border-b-2 px-2 py-4 text-sm font-medium transition-colors duration-200 {viewMode ===
 					'overview'
-						? 'border-blue-500 text-blue-600'
-						: 'border-transparent text-slate-500 hover:text-slate-700'}"
+						? 'border-primary text-primary'
+						: 'border-transparent text-base-content/60 hover:text-base-content'}"
 					onclick={() => handleViewModeChange('overview')}
 				>
 					<div class="flex items-center gap-2">
@@ -414,8 +414,8 @@
 				<button
 					class="cursor-pointer border-b-2 px-2 py-4 text-sm font-medium transition-colors duration-200 {viewMode ===
 					'inventory'
-						? 'border-green-500 text-green-600'
-						: 'border-transparent text-slate-500 hover:text-slate-700'}"
+						? 'border-success text-success'
+						: 'border-transparent text-base-content/60 hover:text-base-content'}"
 					onclick={() => handleViewModeChange('inventory')}
 				>
 					<div class="flex items-center gap-2">
@@ -440,8 +440,8 @@
 				<button
 					class="cursor-pointer border-b-2 px-2 py-4 text-sm font-medium transition-colors duration-200 {viewMode ===
 					'logistics'
-						? 'border-orange-500 text-orange-600'
-						: 'border-transparent text-slate-500 hover:text-slate-700'}"
+						? 'border-warning text-warning'
+						: 'border-transparent text-base-content/60 hover:text-base-content'}"
 					onclick={() => handleViewModeChange('logistics')}
 				>
 					<div class="flex items-center gap-2">
@@ -466,8 +466,8 @@
 				<button
 					class="cursor-pointer border-b-2 px-2 py-4 text-sm font-medium transition-colors duration-200 {viewMode ===
 					'analytics'
-						? 'border-purple-500 text-purple-600'
-						: 'border-transparent text-slate-500 hover:text-slate-700'}"
+						? 'border-secondary text-secondary'
+						: 'border-transparent text-base-content/60 hover:text-base-content'}"
 					onclick={() => handleViewModeChange('analytics')}
 				>
 					<div class="flex items-center gap-2">
@@ -505,24 +505,24 @@
 				<!-- KPI メトリクス -->
 				<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
 					<div
-						class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+						class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm transition-shadow hover:shadow-md"
 					>
 						<div class="flex items-center justify-between">
 							<div>
-								<p class="text-sm font-medium text-slate-600">総注文数</p>
-								<p class="text-2xl font-bold text-slate-900">
+								<p class="text-sm font-medium text-base-content/70">総注文数</p>
+								<p class="text-2xl font-bold text-base-content">
 									{formatMetricValue(kpiMetrics.totalOrders)}
 								</p>
 								<p class="text-sm text-green-600">{kpiMetrics.ordersChange}</p>
 							</div>
-							<div class="rounded-lg bg-blue-100 p-3">
+							<div class="rounded-lg bg-primary/20 p-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-6 w-6 text-blue-600"
+									class="h-6 w-6 text-primary"
 								>
 									<path
 										stroke-linecap="round"
@@ -535,24 +535,24 @@
 					</div>
 
 					<div
-						class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+						class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm transition-shadow hover:shadow-md"
 					>
 						<div class="flex items-center justify-between">
 							<div>
-								<p class="text-sm font-medium text-slate-600">配送成功率</p>
-								<p class="text-2xl font-bold text-slate-900">
+								<p class="text-sm font-medium text-base-content/70">配送成功率</p>
+								<p class="text-2xl font-bold text-base-content">
 									{formatMetricValue(kpiMetrics.deliveryRate, 'percentage')}
 								</p>
 								<p class="text-sm text-green-600">{kpiMetrics.deliveryRateChange}</p>
 							</div>
-							<div class="rounded-lg bg-green-100 p-3">
+							<div class="rounded-lg bg-success/20 p-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-6 w-6 text-green-600"
+									class="h-6 w-6 text-success"
 								>
 									<path
 										stroke-linecap="round"
@@ -565,24 +565,24 @@
 					</div>
 
 					<div
-						class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+						class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm transition-shadow hover:shadow-md"
 					>
 						<div class="flex items-center justify-between">
 							<div>
-								<p class="text-sm font-medium text-slate-600">平均配送時間</p>
-								<p class="text-2xl font-bold text-slate-900">
+								<p class="text-sm font-medium text-base-content/70">平均配送時間</p>
+								<p class="text-2xl font-bold text-base-content">
 									{formatMetricValue(kpiMetrics.averageDeliveryTime, 'time')}
 								</p>
 								<p class="text-sm text-blue-600">{kpiMetrics.deliveryTimeChange}</p>
 							</div>
-							<div class="rounded-lg bg-orange-100 p-3">
+							<div class="rounded-lg bg-warning/20 p-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-6 w-6 text-orange-600"
+									class="h-6 w-6 text-warning"
 								>
 									<path
 										stroke-linecap="round"
@@ -595,24 +595,24 @@
 					</div>
 
 					<div
-						class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+						class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm transition-shadow hover:shadow-md"
 					>
 						<div class="flex items-center justify-between">
 							<div>
-								<p class="text-sm font-medium text-slate-600">在庫回転率</p>
-								<p class="text-2xl font-bold text-slate-900">
+								<p class="text-sm font-medium text-base-content/70">在庫回転率</p>
+								<p class="text-2xl font-bold text-base-content">
 									{formatMetricValue(kpiMetrics.inventoryTurnover)}
 								</p>
 								<p class="text-sm text-green-600">{kpiMetrics.turnoverChange}</p>
 							</div>
-							<div class="rounded-lg bg-purple-100 p-3">
+							<div class="rounded-lg bg-secondary/20 p-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-6 w-6 text-purple-600"
+									class="h-6 w-6 text-secondary"
 								>
 									<path
 										stroke-linecap="round"
@@ -625,24 +625,24 @@
 					</div>
 
 					<div
-						class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+						class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm transition-shadow hover:shadow-md"
 					>
 						<div class="flex items-center justify-between">
 							<div>
-								<p class="text-sm font-medium text-slate-600">倉庫使用率</p>
-								<p class="text-2xl font-bold text-slate-900">
+								<p class="text-sm font-medium text-base-content/70">倉庫使用率</p>
+								<p class="text-2xl font-bold text-base-content">
 									{formatMetricValue(kpiMetrics.warehouseUtilization, 'percentage')}
 								</p>
 								<p class="text-sm text-green-600">{kpiMetrics.utilizationChange}</p>
 							</div>
-							<div class="rounded-lg bg-indigo-100 p-3">
+							<div class="rounded-lg bg-accent/20 p-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-6 w-6 text-indigo-600"
+									class="h-6 w-6 text-accent"
 								>
 									<path
 										stroke-linecap="round"
@@ -655,24 +655,24 @@
 					</div>
 
 					<div
-						class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+						class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm transition-shadow hover:shadow-md"
 					>
 						<div class="flex items-center justify-between">
 							<div>
-								<p class="text-sm font-medium text-slate-600">燃費効率</p>
-								<p class="text-2xl font-bold text-slate-900">
+								<p class="text-sm font-medium text-base-content/70">燃費効率</p>
+								<p class="text-2xl font-bold text-base-content">
 									{formatMetricValue(kpiMetrics.fuelEfficiency)}
 								</p>
 								<p class="text-sm text-green-600">{kpiMetrics.efficiencyChange}</p>
 							</div>
-							<div class="rounded-lg bg-emerald-100 p-3">
+							<div class="rounded-lg bg-success/20 p-3">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-6 w-6 text-emerald-600"
+									class="h-6 w-6 text-success"
 								>
 									<path
 										stroke-linecap="round"

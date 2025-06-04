@@ -62,7 +62,7 @@
 
 <svelte:window bind:innerWidth />
 
-<div class="bg-base-200 -m-4 flex h-[calc(100vh-3.5rem)] flex-col overflow-hidden md:-m-6">
+<div class="bg-base-200 mx-4 flex h-[calc(100vh-3.5rem)] flex-col overflow-hidden md:mx-6">
 	<!-- ヘッダー -->
 	<header class="bg-base-100 border-base-300 flex-shrink-0 border-b px-4 py-2">
 		<div class="flex items-center justify-between">

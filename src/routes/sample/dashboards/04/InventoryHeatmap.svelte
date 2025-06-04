@@ -109,16 +109,14 @@
 
 	function getIntensityColor(intensity, alertLevel) {
 		if (alertLevel > 0.3) {
-			// 危険レベル：赤系
-			return `rgba(239, 68, 68, ${0.3 + intensity * 0.7})`;
+			// 危険レベル：エラー色
+			return `oklch(from var(--er) l c h / ${0.3 + intensity * 0.7})`;
 		} else if (alertLevel > 0.1) {
-			// 警告レベル：オレンジ系
-			return `rgba(245, 158, 11, ${0.3 + intensity * 0.7})`;
+			// 警告レベル：警告色
+			return `oklch(from var(--wa) l c h / ${0.3 + intensity * 0.7})`;
 		} else {
-			// 正常レベル：青・緑系
-			const greenValue = Math.min(255, 100 + intensity * 155);
-			const blueValue = Math.min(255, 150 + intensity * 105);
-			return `rgba(34, ${greenValue}, ${blueValue}, ${0.4 + intensity * 0.6})`;
+			// 正常レベル：成功色
+			return `oklch(from var(--su) l c h / ${0.4 + intensity * 0.6})`;
 		}
 	}
 
@@ -141,13 +139,13 @@
 	}
 </script>
 
-<div class="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+<div class="rounded-xl border border-base-300 bg-base-100 p-6 shadow-sm">
 	<!-- ヘッダー -->
 	<div class="mb-6 flex items-center justify-between">
 		<div>
-			<h3 class="flex items-center gap-2 text-lg font-semibold text-slate-900">
+			<h3 class="flex items-center gap-2 text-lg font-semibold text-base-content">
 				<div
-					class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 text-white"
+					class="flex h-8 w-8 items-center justify-center rounded-lg bg-success text-success-content"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -166,12 +164,12 @@
 				</div>
 				在庫ヒートマップ
 			</h3>
-			<p class="mt-1 text-sm text-slate-600">カテゴリ・倉庫別の在庫レベル可視化</p>
+			<p class="mt-1 text-sm text-base-content/70">カテゴリ・倉庫別の在庫レベル可視化</p>
 		</div>
 
 		<div class="flex items-center gap-3">
 			<!-- カテゴリフィルタ -->
-			<select class="select select-bordered select-sm bg-white" bind:value={selectedCategory}>
+			<select class="select select-bordered select-sm" bind:value={selectedCategory}>
 				{#each categoryOptions as option}
 					<option value={option.id}>{option.name}</option>
 				{/each}
@@ -206,13 +204,13 @@
 		<div class="flex h-64 items-center justify-center">
 			<div class="text-center">
 				<span class="loading loading-spinner loading-lg text-primary"></span>
-				<p class="mt-2 text-sm text-slate-600">在庫データを読み込み中...</p>
+				<p class="mt-2 text-sm text-base-content/70">在庫データを読み込み中...</p>
 			</div>
 		</div>
 	{:else if heatmapData.length === 0}
 		<!-- データなし状態 -->
 		<div class="flex h-64 items-center justify-center">
-			<div class="text-center text-slate-500">
+			<div class="text-center text-base-content/60">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -237,9 +235,9 @@
 			<!-- 拡張された凡例とサマリー -->
 			<div class="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-2">
 				<!-- 凡例 -->
-				<div class="rounded-lg bg-slate-50 p-4">
+				<div class="rounded-lg bg-base-200 p-4">
 					<div class="mb-3 flex items-center gap-2">
-						<span class="font-medium text-slate-700">📊 在庫レベル凡例</span>
+						<span class="font-medium text-base-content/80">📊 在庫レベル凡例</span>
 					</div>
 					<div class="grid grid-cols-2 gap-3">
 						<div class="flex items-center gap-2">
@@ -248,8 +246,8 @@
 								style="background-color: rgba(34, 197, 94, 0.8)"
 							></div>
 							<div class="text-xs">
-								<div class="font-medium text-slate-700">十分</div>
-								<div class="text-slate-500">90%+ 適正在庫</div>
+								<div class="font-medium text-base-content/80">十分</div>
+								<div class="text-base-content/60">90%+ 適正在庫</div>
 							</div>
 						</div>
 						<div class="flex items-center gap-2">
@@ -258,8 +256,8 @@
 								style="background-color: rgba(59, 130, 246, 0.8)"
 							></div>
 							<div class="text-xs">
-								<div class="font-medium text-slate-700">良好</div>
-								<div class="text-slate-500">70-90% 標準</div>
+								<div class="font-medium text-base-content/80">良好</div>
+								<div class="text-base-content/60">70-90% 標準</div>
 							</div>
 						</div>
 						<div class="flex items-center gap-2">
@@ -268,8 +266,8 @@
 								style="background-color: rgba(245, 158, 11, 0.8)"
 							></div>
 							<div class="text-xs">
-								<div class="font-medium text-slate-700">警告</div>
-								<div class="text-slate-500">30-70% 要注意</div>
+								<div class="font-medium text-base-content/80">警告</div>
+								<div class="text-base-content/60">30-70% 要注意</div>
 							</div>
 						</div>
 						<div class="flex items-center gap-2">
@@ -278,17 +276,17 @@
 								style="background-color: rgba(239, 68, 68, 0.8)"
 							></div>
 							<div class="text-xs">
-								<div class="font-medium text-slate-700">危険</div>
-								<div class="text-slate-500">0-30% 緊急対応</div>
+								<div class="font-medium text-base-content/80">危険</div>
+								<div class="text-base-content/60">0-30% 緊急対応</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- クイック分析 -->
-				<div class="rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4">
+				<div class="rounded-lg bg-base-200 p-4">
 					<div class="mb-3 flex items-center gap-2">
-						<span class="font-medium text-slate-700">🎯 クイック分析</span>
+						<span class="font-medium text-base-content/80">🎯 クイック分析</span>
 					</div>
 					<div class="grid grid-cols-2 gap-3 text-xs">
 						<div class="text-center">
@@ -299,7 +297,7 @@
 									100
 								).toFixed(0)}%
 							</div>
-							<div class="text-slate-600">適正在庫率</div>
+							<div class="text-base-content/70">適正在庫率</div>
 						</div>
 						<div class="text-center">
 							<div class="text-lg font-bold text-red-600">
@@ -307,15 +305,15 @@
 									(item) => item.stockLevel === 'low' || item.currentStock === 0
 								).length}
 							</div>
-							<div class="text-slate-600">要対応アイテム</div>
+							<div class="text-base-content/70">要対応アイテム</div>
 						</div>
 						<div class="text-center">
 							<div class="text-lg font-bold text-blue-600">{categories.length}</div>
-							<div class="text-slate-600">取扱カテゴリ</div>
+							<div class="text-base-content/70">取扱カテゴリ</div>
 						</div>
 						<div class="text-center">
 							<div class="text-lg font-bold text-purple-600">{heatmapData.length}</div>
-							<div class="text-slate-600">監視ポイント</div>
+							<div class="text-base-content/70">監視ポイント</div>
 						</div>
 					</div>
 				</div>
@@ -332,15 +330,15 @@
 								<!-- カテゴリヘッダー -->
 								<div class="mb-3 flex items-center gap-2">
 									<span class="text-lg">{getCategoryIcon(category)}</span>
-									<h4 class="font-medium text-slate-800 capitalize">{category}</h4>
-									<span class="text-xs text-slate-500">({categoryData.length} 倉庫)</span>
+									<h4 class="font-medium text-base-content/90 capitalize">{category}</h4>
+									<span class="text-xs text-base-content/60">({categoryData.length} 倉庫)</span>
 								</div>
 
 								<!-- 倉庫別ヒートマップセル（リッチ表示） -->
 								<div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 									{#each categoryData as cell}
 										<button
-											class="group relative rounded-xl border-2 border-transparent p-4 text-left shadow-sm transition-all duration-200 hover:scale-102 hover:border-slate-300 hover:shadow-md"
+											class="group relative rounded-xl border-2 border-transparent p-4 text-left shadow-sm transition-all duration-200 hover:scale-102 hover:border-base-300 hover:shadow-md"
 											style="background: linear-gradient(135deg, {getIntensityColor(
 												cell.intensity,
 												cell.alertLevel
@@ -349,7 +347,7 @@
 										>
 											<!-- ヘッダー -->
 											<div class="mb-2 flex items-center justify-between">
-												<div class="truncate text-xs font-bold text-slate-800">
+												<div class="truncate text-xs font-bold text-base-content/90">
 													{cell.warehouseName}
 												</div>
 
@@ -369,19 +367,19 @@
 											</div>
 
 											<!-- メイン数値 -->
-											<div class="mb-1 text-xl font-bold text-slate-900">
+											<div class="mb-1 text-xl font-bold text-base-content">
 												{formatStock(cell.totalStock)}
 											</div>
 
 											<!-- 詳細情報 -->
-											<div class="grid grid-cols-2 gap-1 text-xs text-slate-700">
+											<div class="grid grid-cols-2 gap-1 text-xs text-base-content/80">
 												<div>
 													<div class="font-medium">{cell.itemCount}</div>
-													<div class="text-slate-500">アイテム</div>
+													<div class="text-base-content/60">アイテム</div>
 												</div>
 												<div>
 													<div class="font-medium">{((1 - cell.alertLevel) * 100).toFixed(0)}%</div>
-													<div class="text-slate-500">稼働率</div>
+													<div class="text-base-content/60">稼働率</div>
 												</div>
 											</div>
 
@@ -413,11 +411,11 @@
 
 											<!-- 詳細ツールチップ -->
 											<div
-												class="invisible absolute -top-20 left-1/2 z-20 -translate-x-1/2 transform rounded-lg bg-slate-900 p-3 text-xs whitespace-nowrap text-white shadow-xl group-hover:visible"
+												class="invisible absolute -top-20 left-1/2 z-20 -translate-x-1/2 transform rounded-lg bg-neutral text-neutral-content p-3 text-xs whitespace-nowrap shadow-xl group-hover:visible"
 											>
 												<div class="space-y-1">
-													<div class="font-bold text-white">{cell.warehouseName} 詳細</div>
-													<div class="border-t border-slate-600 pt-1">
+													<div class="font-bold">{cell.warehouseName} 詳細</div>
+													<div class="border-t border-neutral-content/30 pt-1">
 														<div>📦 総在庫: {cell.totalStock.toLocaleString()}点</div>
 														<div>🔢 アイテム種類: {cell.itemCount}種</div>
 														<div>
@@ -437,7 +435,7 @@
 												</div>
 												<!-- ツールチップの矢印 -->
 												<div
-													class="absolute top-full left-1/2 -translate-x-1/2 transform border-4 border-transparent border-t-slate-900"
+													class="absolute top-full left-1/2 -translate-x-1/2 transform border-4 border-transparent border-t-neutral"
 												></div>
 											</div>
 										</button>
@@ -450,24 +448,24 @@
 			</div>
 
 			<!-- サマリー統計 -->
-			<div class="mt-6 grid grid-cols-1 gap-4 rounded-lg bg-slate-50 p-4 md:grid-cols-4">
+			<div class="mt-6 grid grid-cols-1 gap-4 rounded-lg bg-base-200 p-4 md:grid-cols-4">
 				<div class="text-center">
-					<div class="text-2xl font-bold text-slate-900">
+					<div class="text-2xl font-bold text-base-content">
 						{inventoryData.reduce((sum, item) => sum + item.currentStock, 0).toLocaleString()}
 					</div>
-					<div class="text-sm text-slate-600">総在庫数</div>
+					<div class="text-sm text-base-content/70">総在庫数</div>
 				</div>
 				<div class="text-center">
 					<div class="text-2xl font-bold text-orange-600">
 						{inventoryData.filter((item) => item.stockLevel === 'low').length}
 					</div>
-					<div class="text-sm text-slate-600">低在庫アイテム</div>
+					<div class="text-sm text-base-content/70">低在庫アイテム</div>
 				</div>
 				<div class="text-center">
 					<div class="text-2xl font-bold text-red-600">
 						{inventoryData.filter((item) => item.currentStock === 0).length}
 					</div>
-					<div class="text-sm text-slate-600">在庫切れ</div>
+					<div class="text-sm text-base-content/70">在庫切れ</div>
 				</div>
 				<div class="text-center">
 					<div class="text-2xl font-bold text-green-600">
@@ -477,7 +475,7 @@
 							100
 						).toFixed(1)}%
 					</div>
-					<div class="text-sm text-slate-600">正常在庫率</div>
+					<div class="text-sm text-base-content/70">正常在庫率</div>
 				</div>
 			</div>
 		</div>
