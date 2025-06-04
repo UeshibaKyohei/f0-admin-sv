@@ -49,6 +49,7 @@
 ### 主要テーブル
 
 #### 1. operators（オペレーター）
+
 ```sql
 - id: オペレーターID
 - email: メールアドレス
@@ -60,6 +61,7 @@
 ```
 
 #### 2. customers（顧客）
+
 ```sql
 - id: 顧客ID
 - email: メールアドレス
@@ -70,6 +72,7 @@
 ```
 
 #### 3. inquiries（問い合わせ）
+
 ```sql
 - id: 問い合わせID
 - customer_id: 顧客ID
@@ -82,6 +85,7 @@
 ```
 
 #### 4. chat_sessions（チャットセッション）
+
 ```sql
 - id: セッションID
 - inquiry_id: 問い合わせID
@@ -94,6 +98,7 @@
 ```
 
 #### 5. messages（メッセージ）
+
 ```sql
 - id: メッセージID
 - chat_session_id: セッションID
@@ -125,16 +130,19 @@
 ### 主要エンドポイント
 
 #### オペレーター関連
+
 - `GET /api/operators` - 全オペレーター取得
 - `GET /api/operators/me` - 現在のオペレーター情報
 - `PATCH /api/operators/:id/status` - ステータス更新
 
 #### 問い合わせ関連
+
 - `POST /api/inquiries` - 新規問い合わせ作成
 - `GET /api/inquiries?status=waiting` - 待機中問い合わせ取得
 - `POST /api/inquiries/:id/assign` - オペレーター割り当て
 
 #### チャット関連
+
 - `GET /api/chats/active` - アクティブチャット取得
 - `POST /api/chats/:id/messages` - メッセージ送信
 - `POST /api/chats/:id/resolve` - チャット終了
@@ -163,7 +171,7 @@ socket.on('operator-status-changed', (operator) => { ... });
 
 ```javascript
 // config.js
-export const USE_CHAT_MOCK = true;  // モックモード（デフォルト）
+export const USE_CHAT_MOCK = true; // モックモード（デフォルト）
 export const USE_CHAT_MOCK = false; // 本番モード
 ```
 
@@ -186,10 +194,10 @@ export const USE_CHAT_MOCK = false; // 本番モード
 ```javascript
 // デモデータ生成設定（モックモードのみ有効）
 export const DEMO_CONFIG = {
-  initialInquiryCount: 3,        // 初期問い合わせ数
-  autoGenerateInterval: 10000,   // 自動生成間隔（ミリ秒）
-  autoGenerateProbability: 0.3,  // 自動生成確率
-  showNewInquiryButton: true     // 新規問い合わせボタンの表示
+	initialInquiryCount: 3, // 初期問い合わせ数
+	autoGenerateInterval: 10000, // 自動生成間隔（ミリ秒）
+	autoGenerateProbability: 0.3, // 自動生成確率
+	showNewInquiryButton: true // 新規問い合わせボタンの表示
 };
 ```
 
@@ -212,17 +220,17 @@ export const USE_CHAT_MOCK = false;
 ```javascript
 // api/auth.js を作成
 export async function getAuthHeaders() {
-  const token = await getAccessToken();
-  return {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  };
+	const token = await getAccessToken();
+	return {
+		Authorization: `Bearer ${token}`,
+		'Content-Type': 'application/json'
+	};
 }
 
 // mockService.js で使用
 const response = await fetch(url, {
-  headers: await getAuthHeaders(),
-  ...options
+	headers: await getAuthHeaders(),
+	...options
 });
 ```
 
@@ -231,10 +239,10 @@ const response = await fetch(url, {
 ```javascript
 // supportStore.js
 export const inquiryCategories = {
-  shipping: { label: '配送', icon: '📦' },
-  return: { label: '返品', icon: '↩️' },
-  // 新しいカテゴリーを追加
-  warranty: { label: '保証', icon: '🛡️' }
+	shipping: { label: '配送', icon: '📦' },
+	return: { label: '返品', icon: '↩️' },
+	// 新しいカテゴリーを追加
+	warranty: { label: '保証', icon: '🛡️' }
 };
 ```
 
@@ -243,11 +251,11 @@ export const inquiryCategories = {
 ```javascript
 // supportStore.js の determinePriority 関数を編集
 function determinePriority(customerData) {
-  // カスタムルールを追加
-  if (customerData.totalPurchaseAmount > 1000000) {
-    return 'urgent';
-  }
-  // 既存のルール...
+	// カスタムルールを追加
+	if (customerData.totalPurchaseAmount > 1000000) {
+		return 'urgent';
+	}
+	// 既存のルール...
 }
 ```
 
@@ -258,18 +266,18 @@ DaisyUI のテーマを使用：
 ```javascript
 // tailwind.config.js
 module.exports = {
-  daisyui: {
-    themes: [
-      {
-        corporate: {
-          primary: "#0066cc",
-          secondary: "#6b7280",
-          // カスタムカラー
-        }
-      }
-    ]
-  }
-}
+	daisyui: {
+		themes: [
+			{
+				corporate: {
+					primary: '#0066cc',
+					secondary: '#6b7280'
+					// カスタムカラー
+				}
+			}
+		]
+	}
+};
 ```
 
 ### 6. 通知音の追加
@@ -277,11 +285,11 @@ module.exports = {
 ```javascript
 // 新着問い合わせ時の通知音
 mockWebSocket.simulateNewInquiry((inquiry) => {
-  inquiryQueue.update(queue => [...queue, inquiry]);
-  
-  // 通知音を再生
-  const audio = new Audio('/notification.mp3');
-  audio.play();
+	inquiryQueue.update((queue) => [...queue, inquiry]);
+
+	// 通知音を再生
+	const audio = new Audio('/notification.mp3');
+	audio.play();
 });
 ```
 
@@ -311,9 +319,9 @@ import VirtualList from '@tanstack/svelte-virtual';
 export const messagesByChat = writable(new Map());
 
 // 個別のチャットメッセージのみ更新
-messagesByChat.update(map => {
-  map.set(chatId, [...(map.get(chatId) || []), newMessage]);
-  return new Map(map);
+messagesByChat.update((map) => {
+	map.set(chatId, [...(map.get(chatId) || []), newMessage]);
+	return new Map(map);
 });
 ```
 
@@ -323,7 +331,7 @@ messagesByChat.update(map => {
 import { debounce } from '$lib/utils';
 
 const debouncedSearch = debounce((query) => {
-  searchAPI(query);
+	searchAPI(query);
 }, 300);
 ```
 
@@ -336,7 +344,7 @@ const debouncedSearch = debounce((query) => {
 import { escapeHtml } from './api/validators.js';
 
 // ユーザー入力を表示する際
-<div>{escapeHtml(userMessage)}</div>
+<div>{escapeHtml(userMessage)}</div>;
 ```
 
 ### 2. CSRF対策
@@ -344,9 +352,9 @@ import { escapeHtml } from './api/validators.js';
 ```javascript
 // APIリクエストにCSRFトークンを含める
 const response = await fetch(url, {
-  headers: {
-    'X-CSRF-Token': getCsrfToken()
-  }
+	headers: {
+		'X-CSRF-Token': getCsrfToken()
+	}
 });
 ```
 
@@ -355,7 +363,7 @@ const response = await fetch(url, {
 ```javascript
 // 操作前に権限を確認
 if (!hasPermission('chat.assign')) {
-  throw new Error('この操作を実行する権限がありません');
+	throw new Error('この操作を実行する権限がありません');
 }
 ```
 
@@ -364,10 +372,12 @@ if (!hasPermission('chat.assign')) {
 ### よくある問題
 
 1. **リアクティビティが動作しない**
+
    - ストアの更新時にイミュータブルな操作を使用しているか確認
    - `{@const}` の代わりに `$derived` を使用
 
 2. **APIエラーが表示されない**
+
    - errorHandler が適切にインポートされているか確認
    - try-catch ブロックでエラーをキャッチしているか確認
 
@@ -434,7 +444,7 @@ sequenceDiagram
     participant System as システム
     participant OP2 as オペレーターB
     participant DB as データベース
-    
+
     OP1->>System: 割り当て依頼
     System->>System: 容量チェック
     alt 容量オーバー
@@ -461,10 +471,10 @@ sequenceDiagram
 ```javascript
 // supportStore.js - assignToSelf関数
 export async function assignToSelf(inquiryId) {
-  // 1. 容量チェック
-  // 2. 直接APIを呼び出し
-  // 3. activeChatsに追加
-  // 4. 自動的にselectedChatIdを設定
+	// 1. 容量チェック
+	// 2. 直接APIを呼び出し
+	// 3. activeChatsに追加
+	// 4. 自動的にselectedChatIdを設定
 }
 ```
 
@@ -482,6 +492,7 @@ export async function assignToSelf(inquiryId) {
 ```
 
 **実装時の考慮点：**
+
 - リアルタイムでの容量更新（WebSocket推奨）
 - 割り当て時の楽観的ロック
 - 同時アクセス時の競合制御
@@ -507,7 +518,7 @@ stateDiagram-v2
 // エスカレーション時に保持されるデータ
 {
   chat: {            // チャット基本情報
-    id, 
+    id,
     customerId,
     category,
     priority,
@@ -522,11 +533,13 @@ stateDiagram-v2
 #### 2.3 実装時の重要ポイント
 
 1. **メッセージ履歴の完全性**
+
    - エスカレーション前の全メッセージを保持
    - システムメッセージでエスカレーションを記録
    - タイムスタンプの整合性維持
 
 2. **状態遷移の管理**
+
    ```javascript
    // チャットステータスの遷移
    active → escalation_pending → active（新担当者）
@@ -542,24 +555,28 @@ stateDiagram-v2
 
 ```javascript
 const notificationTypes = {
-  assignment: {      // 新規割り当て
-    priority: 'normal',
-    requiresAction: true,
-    timeout: 30000   // 30秒でタイムアウト
-  },
-  escalation: {      // エスカレーション
-    priority: 'high',
-    requiresAction: true,
-    timeout: 60000   // 60秒でタイムアウト
-  },
-  info: {           // 情報通知
-    priority: 'low',
-    requiresAction: false
-  },
-  warning: {        // 警告
-    priority: 'high',
-    requiresAction: false
-  }
+	assignment: {
+		// 新規割り当て
+		priority: 'normal',
+		requiresAction: true,
+		timeout: 30000 // 30秒でタイムアウト
+	},
+	escalation: {
+		// エスカレーション
+		priority: 'high',
+		requiresAction: true,
+		timeout: 60000 // 60秒でタイムアウト
+	},
+	info: {
+		// 情報通知
+		priority: 'low',
+		requiresAction: false
+	},
+	warning: {
+		// 警告
+		priority: 'high',
+		requiresAction: false
+	}
 };
 ```
 
@@ -603,20 +620,21 @@ POST /api/chat/assignments/:id/reject
 #### 4.2 リアルタイム通信
 
 **WebSocket実装例：**
+
 ```javascript
 // クライアント側
 const ws = new WebSocket('wss://api.example.com/chat/ws');
 
 ws.on('assignment_request', (data) => {
-  notifications.update(n => [...n, data.notification]);
-  pendingAssignments.update(p => ({ ...p, [data.id]: data }));
+	notifications.update((n) => [...n, data.notification]);
+	pendingAssignments.update((p) => ({ ...p, [data.id]: data }));
 });
 
 ws.on('assignment_accepted', (data) => {
-  if (data.requestedBy === currentOperatorId) {
-    // 依頼者に成功を通知
-    showToast('割り当てが承認されました');
-  }
+	if (data.requestedBy === currentOperatorId) {
+		// 依頼者に成功を通知
+		showToast('割り当てが承認されました');
+	}
 });
 ```
 
@@ -662,10 +680,10 @@ CREATE TABLE notifications (
 ```javascript
 // 承認待ちタイムアウトの処理
 function handleAssignmentTimeout(assignmentId) {
-  // 1. pendingAssignmentsから削除
-  // 2. 依頼者に通知
-  // 3. 問い合わせをキューに戻す
-  // 4. ログ記録
+	// 1. pendingAssignmentsから削除
+	// 2. 依頼者に通知
+	// 3. 問い合わせをキューに戻す
+	// 4. ログ記録
 }
 ```
 
@@ -680,9 +698,9 @@ function handleAssignmentTimeout(assignmentId) {
 ```javascript
 // エスカレーション先が見つからない場合
 if (availableOperators.length === 0) {
-  // 1. スーパーバイザーに通知
-  // 2. 優先度を最高に設定
-  // 3. 全オペレーターに通知
+	// 1. スーパーバイザーに通知
+	// 2. 優先度を最高に設定
+	// 3. 全オペレーターに通知
 }
 ```
 
@@ -700,32 +718,32 @@ if (availableOperators.length === 0) {
 // 大規模環境での最適化
 // pendingAssignmentsの定期クリーンアップ
 setInterval(() => {
-  const now = Date.now();
-  pendingAssignments.update(assignments => {
-    return Object.fromEntries(
-      Object.entries(assignments).filter(([_, a]) => 
-        new Date(a.expiresAt) > now
-      )
-    );
-  });
+	const now = Date.now();
+	pendingAssignments.update((assignments) => {
+		return Object.fromEntries(
+			Object.entries(assignments).filter(([_, a]) => new Date(a.expiresAt) > now)
+		);
+	});
 }, 60000); // 1分ごと
 ```
 
 ### 7. セキュリティ考慮事項
 
 1. **権限チェック**
+
    - エスカレーション権限の確認
    - スキルレベルによる制限
 
 2. **監査ログ**
+
    ```javascript
    // 全ての割り当て・エスカレーションを記録
    auditLog.record({
-     action: 'ESCALATION_REQUEST',
-     operator: currentOperator,
-     target: targetOperator,
-     reason: escalationReason,
-     timestamp: new Date()
+   	action: 'ESCALATION_REQUEST',
+   	operator: currentOperator,
+   	target: targetOperator,
+   	reason: escalationReason,
+   	timestamp: new Date()
    });
    ```
 
@@ -738,11 +756,13 @@ setInterval(() => {
 本番実装時に確認すべきテストケース：
 
 1. **正常系**
+
    - 通常の割り当て承認
    - エスカレーション承認
    - 複数同時割り当て
 
 2. **異常系**
+
    - タイムアウト
    - 容量超過
    - ネットワーク切断
@@ -762,6 +782,7 @@ setInterval(() => {
 ### 修正されたバグ
 
 1. **チャット履歴の保存**
+
    - `resolveChat`関数でアーカイブへの保存が正しく動作するよう修正
    - `endTime`/`endDate`プロパティの不整合を解決
    - 個人履歴タブで`assignedTo`フィールドを正しく参照
@@ -773,11 +794,13 @@ setInterval(() => {
 ### 新機能
 
 #### 1. 通知システム
+
 - **NotificationPanel.svelte**: リアルタイム通知表示
 - 割り当て/エスカレーションの承認/拒否機能
 - 未読バッジ表示
 
 #### 2. テスト・デバッグパネル
+
 - **TestPanel.svelte**: 開発/デモ用の統合テストツール
 - オペレーター切り替え機能
 - デバッグモード設定（自動生成・自動返信のON/OFF）
@@ -785,6 +808,7 @@ setInterval(() => {
 - ギアアイコンから調整アイコンに変更（テスト用であることを明示）
 
 #### 3. 割り当て・エスカレーションフローの改善
+
 ```javascript
 // 新しい関数
 - requestAssignInquiry: 割り当て依頼（通知送信）
@@ -797,17 +821,20 @@ setInterval(() => {
 ```
 
 #### 4. データの明確な分離
+
 - 仮想顧客名に「様」を付けてオペレーター名と区別
 - debugStore.jsでデバッグ設定を一元管理
 
 ### アーキテクチャの改善
 
 #### 新しいストア
+
 - `notifications`: 通知キュー
 - `pendingAssignments`: 承認待ちの割り当て/エスカレーション
 - `debugSettings`: デバッグモード設定
 
 #### コンポーネント構成
+
 ```
 /chat/
 ├── +page.svelte           # メインページ
@@ -822,11 +849,13 @@ setInterval(() => {
 ### 使い方
 
 1. **テストパネル**
+
    - 画面右下の黄色い調整アイコンをクリック
    - 「問い合わせ自動生成」と「顧客自動返信」をON/OFF可能
    - 新規問い合わせボタンもこちらに統合
 
 2. **通知パネル**
+
    - ヘッダーのベルアイコンをクリック
    - 割り当てやエスカレーションの承認/拒否が可能
 

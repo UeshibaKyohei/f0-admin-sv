@@ -5,32 +5,62 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="theme-color" content="oklch(0.570 0.210 287.5)" />
-    <script type="module" src="https://unpkg.com/cally"></script>
+		<script type="module" src="https://unpkg.com/cally"></script>
 		<!-- テーマ初期化スクリプト（ちらつき防止） -->
-    <script>
-      (function() {
-        try {
-          const storedTheme = localStorage.getItem('theme');
-          const availableThemes = [
-            'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate',
-            'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
-            'forest', 'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe', 'black',
-            'luxury', 'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade',
-            'night', 'coffee', 'winter', 'dim', 'nord', 'sunset', 'caramellatte',
-            'abyss', 'silk'
-          ];
-          
-          const theme = (storedTheme && availableThemes.includes(storedTheme)) ? storedTheme : 'light';
-          document.documentElement.setAttribute('data-theme', theme);
-        } catch (error) {
-          console.warn('Failed to initialize theme:', error);
-          document.documentElement.setAttribute('data-theme', 'light');
-        }
-      })();
-    </script>
-    
-    %sveltekit.head%
-  </head>
+		<script>
+			(function () {
+				try {
+					const storedTheme = localStorage.getItem('theme');
+					const availableThemes = [
+						'light',
+						'dark',
+						'cupcake',
+						'bumblebee',
+						'emerald',
+						'corporate',
+						'synthwave',
+						'retro',
+						'cyberpunk',
+						'valentine',
+						'halloween',
+						'garden',
+						'forest',
+						'aqua',
+						'lofi',
+						'pastel',
+						'fantasy',
+						'wireframe',
+						'black',
+						'luxury',
+						'dracula',
+						'cmyk',
+						'autumn',
+						'business',
+						'acid',
+						'lemonade',
+						'night',
+						'coffee',
+						'winter',
+						'dim',
+						'nord',
+						'sunset',
+						'caramellatte',
+						'abyss',
+						'silk'
+					];
+
+					const theme =
+						storedTheme && availableThemes.includes(storedTheme) ? storedTheme : 'light';
+					document.documentElement.setAttribute('data-theme', theme);
+				} catch (error) {
+					console.warn('Failed to initialize theme:', error);
+					document.documentElement.setAttribute('data-theme', 'light');
+				}
+			})();
+		</script>
+
+		%sveltekit.head%
+	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>

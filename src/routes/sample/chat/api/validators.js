@@ -1,6 +1,6 @@
 /**
  * Validators for Customer Support Chat System
- * 
+ *
  * データバリデーション用のユーティリティ関数群
  */
 
@@ -13,11 +13,11 @@ import { createValidationError } from './errorHandler.js';
  * @throws {Error} バリデーションエラー
  */
 export function validateRequired(data, requiredFields) {
-  for (const field of requiredFields) {
-    if (!data[field] || (typeof data[field] === 'string' && !data[field].trim())) {
-      throw createValidationError(field, `${field}は必須項目です`);
-    }
-  }
+	for (const field of requiredFields) {
+		if (!data[field] || (typeof data[field] === 'string' && !data[field].trim())) {
+			throw createValidationError(field, `${field}は必須項目です`);
+		}
+	}
 }
 
 /**
@@ -26,20 +26,20 @@ export function validateRequired(data, requiredFields) {
  * @throws {Error} バリデーションエラー
  */
 export function validateMessage(message) {
-  if (!message || typeof message !== 'string') {
-    throw createValidationError('message', 'メッセージを入力してください');
-  }
-  
-  const trimmed = message.trim();
-  if (!trimmed) {
-    throw createValidationError('message', 'メッセージを入力してください');
-  }
-  
-  if (trimmed.length > 5000) {
-    throw createValidationError('message', 'メッセージは5000文字以内で入力してください');
-  }
-  
-  return trimmed;
+	if (!message || typeof message !== 'string') {
+		throw createValidationError('message', 'メッセージを入力してください');
+	}
+
+	const trimmed = message.trim();
+	if (!trimmed) {
+		throw createValidationError('message', 'メッセージを入力してください');
+	}
+
+	if (trimmed.length > 5000) {
+		throw createValidationError('message', 'メッセージは5000文字以内で入力してください');
+	}
+
+	return trimmed;
 }
 
 /**
@@ -49,9 +49,9 @@ export function validateMessage(message) {
  * @throws {Error} バリデーションエラー
  */
 export function validateCategory(category, validCategories) {
-  if (!validCategories.includes(category)) {
-    throw createValidationError('category', '無効なカテゴリーが指定されました');
-  }
+	if (!validCategories.includes(category)) {
+		throw createValidationError('category', '無効なカテゴリーが指定されました');
+	}
 }
 
 /**
@@ -61,9 +61,9 @@ export function validateCategory(category, validCategories) {
  * @throws {Error} バリデーションエラー
  */
 export function validatePriority(priority, validPriorities) {
-  if (!validPriorities.includes(priority)) {
-    throw createValidationError('priority', '無効な優先度が指定されました');
-  }
+	if (!validPriorities.includes(priority)) {
+		throw createValidationError('priority', '無効な優先度が指定されました');
+	}
 }
 
 /**
@@ -73,24 +73,21 @@ export function validatePriority(priority, validPriorities) {
  * @throws {Error} バリデーションエラー
  */
 export function validateOperatorStatus(status, currentStatus) {
-  const validStatuses = ['available', 'busy', 'break', 'offline'];
-  
-  if (!validStatuses.includes(status)) {
-    throw createValidationError('status', '無効なステータスが指定されました');
-  }
-  
-  // ステータス遷移のルール
-  const invalidTransitions = {
-    'offline': ['busy'], // オフラインから対応中への直接遷移は不可
-    'busy': ['offline']  // 対応中からオフラインへの直接遷移は不可（チャットを終了してから）
-  };
-  
-  if (invalidTransitions[currentStatus]?.includes(status)) {
-    throw createValidationError(
-      'status', 
-      `${currentStatus}から${status}への変更はできません`
-    );
-  }
+	const validStatuses = ['available', 'busy', 'break', 'offline'];
+
+	if (!validStatuses.includes(status)) {
+		throw createValidationError('status', '無効なステータスが指定されました');
+	}
+
+	// ステータス遷移のルール
+	const invalidTransitions = {
+		offline: ['busy'], // オフラインから対応中への直接遷移は不可
+		busy: ['offline'] // 対応中からオフラインへの直接遷移は不可（チャットを終了してから）
+	};
+
+	if (invalidTransitions[currentStatus]?.includes(status)) {
+		throw createValidationError('status', `${currentStatus}から${status}への変更はできません`);
+	}
 }
 
 /**
@@ -99,21 +96,21 @@ export function validateOperatorStatus(status, currentStatus) {
  * @throws {Error} バリデーションエラー
  */
 export function validateChatResolution(resolutionData) {
-  validateRequired(resolutionData, ['resolution', 'summary']);
-  
-  const validResolutions = ['resolved', 'escalated', 'unresolved'];
-  if (!validResolutions.includes(resolutionData.resolution)) {
-    throw createValidationError('resolution', '無効な解決ステータスが指定されました');
-  }
-  
-  const summary = resolutionData.summary.trim();
-  if (summary.length < 10) {
-    throw createValidationError('summary', '対応内容の要約は10文字以上で入力してください');
-  }
-  
-  if (summary.length > 1000) {
-    throw createValidationError('summary', '対応内容の要約は1000文字以内で入力してください');
-  }
+	validateRequired(resolutionData, ['resolution', 'summary']);
+
+	const validResolutions = ['resolved', 'escalated', 'unresolved'];
+	if (!validResolutions.includes(resolutionData.resolution)) {
+		throw createValidationError('resolution', '無効な解決ステータスが指定されました');
+	}
+
+	const summary = resolutionData.summary.trim();
+	if (summary.length < 10) {
+		throw createValidationError('summary', '対応内容の要約は10文字以上で入力してください');
+	}
+
+	if (summary.length > 1000) {
+		throw createValidationError('summary', '対応内容の要約は1000文字以内で入力してください');
+	}
 }
 
 /**
@@ -122,23 +119,23 @@ export function validateChatResolution(resolutionData) {
  * @throws {Error} バリデーションエラー
  */
 export function validateCustomerData(customerData) {
-  validateRequired(customerData, ['id', 'name']);
-  
-  // メールアドレスの形式チェック（オプショナル）
-  if (customerData.email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(customerData.email)) {
-      throw createValidationError('email', '有効なメールアドレスを入力してください');
-    }
-  }
-  
-  // 電話番号の形式チェック（オプショナル）
-  if (customerData.phone) {
-    const phoneRegex = /^[\d-+()]+$/;
-    if (!phoneRegex.test(customerData.phone)) {
-      throw createValidationError('phone', '有効な電話番号を入力してください');
-    }
-  }
+	validateRequired(customerData, ['id', 'name']);
+
+	// メールアドレスの形式チェック（オプショナル）
+	if (customerData.email) {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(customerData.email)) {
+			throw createValidationError('email', '有効なメールアドレスを入力してください');
+		}
+	}
+
+	// 電話番号の形式チェック（オプショナル）
+	if (customerData.phone) {
+		const phoneRegex = /^[\d-+()]+$/;
+		if (!phoneRegex.test(customerData.phone)) {
+			throw createValidationError('phone', '有効な電話番号を入力してください');
+		}
+	}
 }
 
 /**
@@ -148,20 +145,20 @@ export function validateCustomerData(customerData) {
  * @returns {string} 置換後の文字列
  */
 export function replaceTemplateVariables(template, variables) {
-  let result = template;
-  
-  for (const [key, value] of Object.entries(variables)) {
-    const placeholder = `{${key}}`;
-    result = result.replace(new RegExp(placeholder, 'g'), value || '');
-  }
-  
-  // 未置換のプレースホルダーをチェック
-  const unreplaced = result.match(/\{[^}]+\}/g);
-  if (unreplaced) {
-    console.warn('Unreplaced template variables:', unreplaced);
-  }
-  
-  return result;
+	let result = template;
+
+	for (const [key, value] of Object.entries(variables)) {
+		const placeholder = `{${key}}`;
+		result = result.replace(new RegExp(placeholder, 'g'), value || '');
+	}
+
+	// 未置換のプレースホルダーをチェック
+	const unreplaced = result.match(/\{[^}]+\}/g);
+	if (unreplaced) {
+		console.warn('Unreplaced template variables:', unreplaced);
+	}
+
+	return result;
 }
 
 /**
@@ -170,9 +167,9 @@ export function replaceTemplateVariables(template, variables) {
  * @returns {string} エスケープ後の文字列
  */
 export function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+	const div = document.createElement('div');
+	div.textContent = str;
+	return div.innerHTML;
 }
 
 /**
@@ -181,6 +178,6 @@ export function escapeHtml(str) {
  * @returns {boolean} 妥当な日時かどうか
  */
 export function isValidDate(dateString) {
-  const date = new Date(dateString);
-  return date instanceof Date && !isNaN(date);
+	const date = new Date(dateString);
+	return date instanceof Date && !isNaN(date);
 }
