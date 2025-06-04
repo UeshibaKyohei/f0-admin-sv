@@ -210,7 +210,7 @@
   
   <!-- フッター -->
   <div class="mt-8 text-center pb-8">
-    <a href="/sample/zaiko" class="btn btn-outline">
+    <a href="/sample/data-management/zaiko" class="btn btn-outline">
       <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
       </svg>

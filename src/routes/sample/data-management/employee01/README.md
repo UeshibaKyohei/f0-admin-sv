@@ -681,7 +681,7 @@ test('should filter employees', async () => {
 ```javascript
 // Playwright を使用
 test('complete employee registration flow', async ({ page }) => {
-  await page.goto('/sample/items/02');
+  await page.goto(PATH);
   await page.click('text=新規登録');
   await page.fill('[name=first_name]', '太郎');
   await page.fill('[name=last_name]', '山田');
