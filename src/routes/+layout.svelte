@@ -2,6 +2,16 @@
 	import '../app.css';
 	import IntegratedHeader from './IntegratedHeader.svelte';
 	import CompactNav from './CompactNav.svelte';
+	import Toast from '$lib/components/Toast.svelte';
+	import {
+		theme,
+		availableThemes,
+		themeColors,
+		setTheme,
+		getThemeDisplayName,
+		getCurrentThemeInfo
+	} from '$lib/stores/theme.js';
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 
 	let { children } = $props();
@@ -101,6 +111,7 @@
 		</div>
 	</div>
 {/if}
+
 
 <style>
 	:global(body) {
