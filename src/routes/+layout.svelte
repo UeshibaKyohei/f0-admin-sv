@@ -2,6 +2,7 @@
 <script lang="ts">
 	import '../app.css';
 	import Sidebar from './Sidebar.svelte';
+	import Toast from '$lib/components/Toast.svelte';
 	import {
 		theme,
 		availableThemes,
@@ -251,6 +252,9 @@
 		<Sidebar />
 	</div>
 </div>
+
+<!-- Toast通知コンテナ -->
+<Toast />
 
 <!-- グローバルスタイル -->
 <style>
