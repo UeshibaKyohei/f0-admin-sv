@@ -25,3 +25,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 *storybook.log
+
+# Claude
+CLAUDE.md
+ai-task
