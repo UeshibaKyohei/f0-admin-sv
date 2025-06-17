@@ -187,7 +187,7 @@
             新規社員登録
           {/if}
         </h2>
-        <button class="btn btn-sm btn-circle btn-ghost" on:click={closeEmployeeModal}>
+        <button class="btn btn-sm btn-circle btn-ghost" onclick={closeEmployeeModal} aria-label="閉じる">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
           </svg>
@@ -267,11 +267,11 @@
               <h4 class="card-title text-lg mb-4">連絡先情報</h4>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label class="text-sm text-base-content/60">メールアドレス</label>
+                  <div class="text-sm text-base-content/60">メールアドレス</div>
                   <p class="font-medium">{$currentEmployee.email}</p>
                 </div>
                 <div>
-                  <label class="text-sm text-base-content/60">電話番号</label>
+                  <div class="text-sm text-base-content/60">電話番号</div>
                   <p class="font-medium">{$currentEmployee.phone || '-'}</p>
                 </div>
               </div>
@@ -308,17 +308,17 @@
 
         <!-- 表示モードのアクション -->
         <div class="modal-action">
-          <button class="btn btn-primary" on:click={() => modalMode.set('edit')}>
+          <button class="btn btn-primary" onclick={() => modalMode.set('edit')}>
             編集
           </button>
-          <button class="btn btn-ghost" on:click={closeEmployeeModal}>
+          <button class="btn btn-ghost" onclick={closeEmployeeModal}>
             閉じる
           </button>
         </div>
 
       <!-- 編集・作成モード -->
       {:else}
-        <form on:submit|preventDefault={handleSubmit}>
+        <form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
           <div class="space-y-6">
             <!-- 基本情報 -->
             <div class="card bg-base-100">
@@ -327,10 +327,11 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-number">
                       <span class="label-text">社員番号 <span class="text-error">*</span></span>
                     </label>
                     <input 
+                      id="employee-number"
                       type="text" 
                       class="input input-bordered {errors.employeeNumber ? 'input-error' : ''}"
                       bind:value={formData.employeeNumber}
@@ -338,68 +339,72 @@
                       placeholder="EMP001"
                     />
                     {#if errors.employeeNumber}
-                      <label class="label">
+                      <div class="label">
                         <span class="label-text-alt text-error">{errors.employeeNumber}</span>
-                      </label>
+                      </div>
                     {/if}
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-email">
                       <span class="label-text">メールアドレス <span class="text-error">*</span></span>
                     </label>
                     <input 
+                      id="employee-email"
                       type="email" 
                       class="input input-bordered {errors.email ? 'input-error' : ''}"
                       bind:value={formData.email}
                       placeholder="example@company.com"
                     />
                     {#if errors.email}
-                      <label class="label">
+                      <div class="label">
                         <span class="label-text-alt text-error">{errors.email}</span>
-                      </label>
+                      </div>
                     {/if}
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-lastname">
                       <span class="label-text">姓 <span class="text-error">*</span></span>
                     </label>
                     <input 
+                      id="employee-lastname"
                       type="text" 
                       class="input input-bordered {errors.lastName ? 'input-error' : ''}"
                       bind:value={formData.lastName}
                       placeholder="田中"
                     />
                     {#if errors.lastName}
-                      <label class="label">
+                      <div class="label">
                         <span class="label-text-alt text-error">{errors.lastName}</span>
-                      </label>
+                      </div>
                     {/if}
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-firstname">
                       <span class="label-text">名 <span class="text-error">*</span></span>
                     </label>
                     <input 
+                      id="employee-firstname"
                       type="text" 
                       class="input input-bordered {errors.firstName ? 'input-error' : ''}"
                       bind:value={formData.firstName}
                       placeholder="太郎"
                     />
                     {#if errors.firstName}
-                      <label class="label">
+                      <div class="label">
                         <span class="label-text-alt text-error">{errors.firstName}</span>
-                      </label>
+                      </div>
                     {/if}
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-phone">
                       <span class="label-text">電話番号</span>
                     </label>
                     <input 
+                      id="employee-phone"
                       type="tel" 
                       class="input input-bordered"
                       bind:value={formData.phone}
@@ -408,10 +413,11 @@
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-birthdate">
                       <span class="label-text">生年月日</span>
                     </label>
                     <input 
+                      id="employee-birthdate"
                       type="date" 
                       class="input input-bordered"
                       bind:value={formData.birthDate}
@@ -428,10 +434,11 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-department">
                       <span class="label-text">部署 <span class="text-error">*</span></span>
                     </label>
                     <select 
+                      id="employee-department"
                       class="select select-bordered {errors.departmentId ? 'select-error' : ''}"
                       bind:value={formData.departmentId}
                     >
@@ -443,17 +450,18 @@
                       {/each}
                     </select>
                     {#if errors.departmentId}
-                      <label class="label">
+                      <div class="label">
                         <span class="label-text-alt text-error">{errors.departmentId}</span>
-                      </label>
+                      </div>
                     {/if}
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-position">
                       <span class="label-text">役職 <span class="text-error">*</span></span>
                     </label>
                     <select 
+                      id="employee-position"
                       class="select select-bordered {errors.positionId ? 'select-error' : ''}"
                       bind:value={formData.positionId}
                     >
@@ -463,17 +471,18 @@
                       {/each}
                     </select>
                     {#if errors.positionId}
-                      <label class="label">
+                      <div class="label">
                         <span class="label-text-alt text-error">{errors.positionId}</span>
-                      </label>
+                      </div>
                     {/if}
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-employment-type">
                       <span class="label-text">雇用形態</span>
                     </label>
                     <select 
+                      id="employee-employment-type"
                       class="select select-bordered"
                       bind:value={formData.contractType}
                     >
@@ -484,10 +493,11 @@
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-status">
                       <span class="label-text">在籍状況</span>
                     </label>
                     <select 
+                      id="employee-status"
                       class="select select-bordered"
                       bind:value={formData.status}
                     >
@@ -498,26 +508,28 @@
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-joined-date">
                       <span class="label-text">入社日 <span class="text-error">*</span></span>
                     </label>
                     <input 
+                      id="employee-joined-date"
                       type="date" 
                       class="input input-bordered {errors.hireDate ? 'input-error' : ''}"
                       bind:value={formData.hireDate}
                     />
                     {#if errors.hireDate}
-                      <label class="label">
+                      <div class="label">
                         <span class="label-text-alt text-error">{errors.hireDate}</span>
-                      </label>
+                      </div>
                     {/if}
                   </div>
 
                   <div class="form-control">
-                    <label class="label">
+                    <label class="label" for="employee-location">
                       <span class="label-text">勤務地</span>
                     </label>
                     <select 
+                      id="employee-location"
                       class="select select-bordered"
                       bind:value={formData.workLocation}
                     >
@@ -536,7 +548,7 @@
               <div class="card-body">
                 <div class="flex items-center justify-between mb-4">
                   <h4 class="card-title text-lg">スキル情報</h4>
-                  <button type="button" class="btn btn-outline btn-sm" on:click={addSkill}>
+                  <button type="button" class="btn btn-outline btn-sm" onclick={addSkill}>
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                     </svg>
@@ -580,7 +592,8 @@
                       <button 
                         type="button" 
                         class="btn btn-ghost btn-sm btn-circle"
-                        on:click={() => removeSkill(index)}
+                        onclick={() => removeSkill(index)}
+                        aria-label="スキルを削除"
                       >
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -611,7 +624,7 @@
               {/if}
               {$modalMode === 'create' ? '登録' : '更新'}
             </button>
-            <button type="button" class="btn btn-ghost" on:click={closeEmployeeModal}>
+            <button type="button" class="btn btn-ghost" onclick={closeEmployeeModal}>
               キャンセル
             </button>
           </div>

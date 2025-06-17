@@ -156,13 +156,13 @@
         <div class="btn-group">
           <button 
             class="btn btn-sm {viewMode === 'overview' ? 'btn-active' : ''}"
-            on:click={() => viewMode = 'overview'}
+            onclick={() => viewMode = 'overview'}
           >
             概要
           </button>
           <button 
             class="btn btn-sm {viewMode === 'gap' ? 'btn-active' : ''}"
-            on:click={() => viewMode = 'gap'}
+            onclick={() => viewMode = 'gap'}
           >
             ギャップ分析
           </button>
@@ -202,9 +202,9 @@
       <!-- スキル概要 -->
       <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
         {#each skillStats as stat}
-          <div 
-            class="border border-base-300 rounded-lg p-4 hover:border-primary cursor-pointer transition-colors"
-            on:click={() => selectSkill(stat)}
+          <button 
+            class="border border-base-300 rounded-lg p-4 hover:border-primary cursor-pointer transition-colors w-full text-left"
+            onclick={() => selectSkill(stat)}
           >
             <div class="flex items-start justify-between mb-3">
               <div>
@@ -262,7 +262,7 @@
                 平均経験年数: {stat.avgExperience}年
               </div>
             {/if}
-          </div>
+          </button>
         {/each}
       </div>
 
@@ -328,7 +328,7 @@
                     <td>
                       <button 
                         class="btn btn-ghost btn-xs"
-                        on:click={() => {
+                        onclick={() => {
                           selectedSkill = skillStats.find(s => s.skill.id === gap.skill.id);
                           viewMode = 'detail';
                         }}
@@ -347,18 +347,26 @@
 
     <!-- スキル詳細モーダル -->
     {#if selectedSkill && viewMode === 'detail'}
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4" on:click={() => viewMode = 'overview'}>
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4" 
+           onclick={() => viewMode = 'overview'}
+           onkeydown={(e) => { if (e.key === 'Escape') viewMode = 'overview'; }}
+           role="dialog"
+           aria-modal="true"
+           aria-labelledby="skill-detail-title">
         <div class="bg-black/50 absolute inset-0"></div>
-        <div class="card bg-base-100 w-full max-w-4xl max-h-[90vh] overflow-auto relative z-10" on:click|stopPropagation>
+        <div class="card bg-base-100 w-full max-w-4xl max-h-[90vh] overflow-auto relative z-10" 
+             onclick={(e) => e.stopPropagation()}
+             role="document">
           <div class="card-body">
             <div class="flex items-center justify-between mb-4">
               <div>
-                <h3 class="text-xl font-semibold">{selectedSkill.skill.name}</h3>
+                <h3 id="skill-detail-title" class="text-xl font-semibold">{selectedSkill.skill.name}</h3>
                 <p class="text-base-content/60">{selectedSkill.skill.description}</p>
               </div>
               <button 
                 class="btn btn-ghost btn-sm"
-                on:click={() => viewMode = 'overview'}
+                onclick={() => viewMode = 'overview'}
+                aria-label="閉じる"
               >
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -406,7 +414,7 @@
                       {#each levelEmployees as employee}
                         <button 
                           class="flex items-center gap-3 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-50 transition-all text-left"
-                          on:click={() => openEmployeeModal('view', employee)}
+                          onclick={() => openEmployeeModal('view', employee)}
                         >
                           <div class="avatar avatar-placeholder">
                             <div class="bg-neutral text-neutral-content w-10 h-10 rounded-full">

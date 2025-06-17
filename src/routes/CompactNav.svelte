@@ -320,7 +320,7 @@
 											href={item.path}
 											class="nav-item"
 											class:active={isActive(item.path)}
-											on:mouseenter={() => (hoveredItem = item.path)}
+											onmouseenter={() => (hoveredItem = item.path)}
 										>
 											<svg class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
@@ -336,7 +336,7 @@
 								{:else if item.type === 'submenu' && item.path}
 									<li>
 										<button
-											on:click={() => toggleSubmenu(item.path)}
+											onclick={() => toggleSubmenu(item.path)}
 											class="nav-item w-full justify-between"
 											class:active={isParentActive(item.path)}
 										>
@@ -402,7 +402,8 @@
 								<button
 									class="nav-item justify-center w-full"
 									class:active={isParentActive(item.path)}
-									on:click={(e) => handleCompactSubmenuClick(item.path, e)}
+									onclick={(e) => handleCompactSubmenuClick(item.path, e)}
+									aria-label={item.text}
 								>
 									<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
@@ -420,7 +421,7 @@
 	<!-- 展開トグル (固定) -->
 	<div class="border-t border-base-200 p-2 flex-shrink-0">
 		<button
-			on:click={() => (expanded = !expanded)}
+			onclick={() => (expanded = !expanded)}
 			class="nav-item w-full justify-center group"
 			aria-label="メニュー展開切替"
 		>
@@ -455,7 +456,7 @@
 								href={child.path}
 								class="block px-2 py-1 text-sm rounded hover:bg-base-200 transition-colors"
 								class:text-primary={child.path && isActive(child.path)}
-								on:click={() => {
+								onclick={() => {
 									clickedItem = null;
 								}}
 							>

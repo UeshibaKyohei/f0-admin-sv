@@ -215,8 +215,8 @@
             <th 
               class="bg-base-200 text-center whitespace-nowrap cursor-pointer hover:bg-base-300 transition-colors z-10"
               class:bg-base-300={hoveredCol === col.id}
-              on:mouseenter={() => hoveredCol = col.id}
-              on:mouseleave={() => hoveredCol = null}
+              onmouseenter={() => hoveredCol = col.id}
+              onmouseleave={() => hoveredCol = null}
             >
               <div class="writing-mode-vertical">
                 {col.name}
@@ -235,8 +235,8 @@
             <th 
               class="bg-base-200 whitespace-nowrap cursor-pointer hover:bg-base-300 transition-colors z-10"
               class:bg-base-300={hoveredRow === row.id}
-              on:mouseenter={() => hoveredRow = row.id}
-              on:mouseleave={() => hoveredRow = null}
+              onmouseenter={() => hoveredRow = row.id}
+              onmouseleave={() => hoveredRow = null}
             >
               <div class="flex items-center gap-2">
                 {#if row.level}
@@ -254,7 +254,7 @@
                 class:bg-base-100={hoveredRow === row.id || hoveredCol === col.id}
                 class:ring-2={selectedCell?.rowId === row.id && selectedCell?.colId === col.id}
                 class:ring-primary={selectedCell?.rowId === row.id && selectedCell?.colId === col.id}
-                on:click={() => handleCellClick(row.id, col.id, cellData)}
+                onclick={() => handleCellClick(row.id, col.id, cellData)}
               >
                 {#if cellData.count > 0}
                   {#if showNumbers}
@@ -313,7 +313,8 @@
           </h4>
           <button 
             class="btn btn-ghost btn-sm"
-            on:click={() => selectedCell = null}
+            onclick={() => selectedCell = null}
+            aria-label="閉じる"
           >
             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -325,7 +326,7 @@
           {#each selectedCell.data.employees as employee}
             <button 
               class="flex items-center gap-3 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-50 transition-all text-left"
-              on:click={() => dispatch('openEmployee', employee)}
+              onclick={() => dispatch('openEmployee', employee)}
             >
               <div class="avatar avatar-placeholder">
                 <div class="bg-neutral text-neutral-content w-10 h-10 rounded-full">

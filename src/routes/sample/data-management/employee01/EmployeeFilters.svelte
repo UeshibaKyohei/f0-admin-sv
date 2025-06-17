@@ -125,7 +125,7 @@
           class="input input-bordered flex-1"
           bind:value={localFilters.search}
         />
-        <button class="btn btn-square">
+        <button class="btn btn-square" aria-label="検索">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
           </svg>
@@ -146,7 +146,7 @@
     
     <button 
       class="btn btn-outline btn-square"
-      on:click={() => {
+      onclick={() => {
         localFilters.sortOrder = localFilters.sortOrder === 'asc' ? 'desc' : 'asc';
         updateFilter('sortOrder', localFilters.sortOrder);
       }}
@@ -168,7 +168,7 @@
   <div class="flex items-center">
     <button 
       class="btn btn-outline {$isFilterPanelOpen ? 'btn-active' : ''}"
-      on:click={toggleFilterPanel}
+      onclick={toggleFilterPanel}
     >
       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
         <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -190,10 +190,10 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         <!-- 部署フィルター -->
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="filter-department">
             <span class="label-text font-semibold">部署</span>
           </label>
-          <select class="select select-bordered" bind:value={localFilters.departmentId}>
+          <select id="filter-department" class="select select-bordered" bind:value={localFilters.departmentId}>
             <option value={null}>すべての部署</option>
             {#each $departmentList as department}
               <option value={department.id}>
@@ -205,10 +205,10 @@
 
         <!-- 役職フィルター -->
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="filter-position">
             <span class="label-text font-semibold">役職</span>
           </label>
-          <select class="select select-bordered" bind:value={localFilters.positionId}>
+          <select id="filter-position" class="select select-bordered" bind:value={localFilters.positionId}>
             <option value={null}>すべての役職</option>
             {#each $positionList.sort((a, b) => b.level - a.level) as position}
               <option value={position.id}>{position.name}</option>
@@ -218,10 +218,10 @@
 
         <!-- 勤務地フィルター -->
         <div class="form-control">
-          <label class="label">
+          <label class="label" for="filter-location">
             <span class="label-text font-semibold">勤務地</span>
           </label>
-          <select class="select select-bordered" bind:value={localFilters.workLocation}>
+          <select id="filter-location" class="select select-bordered" bind:value={localFilters.workLocation}>
             <option value={null}>すべての勤務地</option>
             {#each WORK_LOCATIONS as location}
               <option value={location}>{location}</option>
@@ -241,7 +241,7 @@
                   type="checkbox" 
                   class="checkbox checkbox-sm"
                   checked={localFilters.contractType.includes(contractType.value)}
-                  on:change={() => toggleContractType(contractType.value)}
+                  onchange={() => toggleContractType(contractType.value)}
                 />
                 <span class="label-text ml-2">{contractType.label}</span>
               </label>
@@ -261,7 +261,7 @@
                   type="checkbox" 
                   class="checkbox checkbox-sm"
                   checked={localFilters.status.includes(status.value)}
-                  on:change={() => toggleStatus(status.value)}
+                  onchange={() => toggleStatus(status.value)}
                 />
                 <span class="label-text ml-2">{status.label}</span>
               </label>
@@ -271,11 +271,11 @@
 
         <!-- 入社年範囲 -->
         <div class="form-control">
-          <label class="label">
-            <span class="label-text font-semibold">入社年</span>
+          <label class="label" for="filter-hire-year">
+            <span class="label-text font-semibold">入社年範囲</span>
           </label>
           <div class="flex gap-2 items-center">
-            <select class="select select-bordered select-sm flex-1" bind:value={localFilters.hireYearRange.start}>
+            <select id="filter-hire-year" class="select select-bordered select-sm flex-1" bind:value={localFilters.hireYearRange.start}>
               <option value={null}>開始年</option>
               {#each yearOptions as year}
                 <option value={year}>{year}年</option>
@@ -293,11 +293,12 @@
 
         <!-- 年齢範囲 -->
         <div class="form-control">
-          <label class="label">
-            <span class="label-text font-semibold">年齢</span>
+          <label class="label" for="filter-age-min">
+            <span class="label-text font-semibold">年齢範囲</span>
           </label>
           <div class="flex gap-2 items-center">
             <input 
+              id="filter-age-min"
               type="number" 
               placeholder="最小"
               class="input input-bordered input-sm flex-1"
@@ -307,6 +308,7 @@
             />
             <span class="text-base-content/70">〜</span>
             <input 
+              id="filter-age-max"
               type="number" 
               placeholder="最大"
               class="input input-bordered input-sm flex-1"
@@ -320,8 +322,8 @@
 
       <!-- スキルフィルター -->
       <div class="form-control mt-6">
-        <label class="label">
-          <span class="label-text font-semibold">スキル</span>
+        <label class="label" for="filter-skill-search">
+          <span class="label-text font-semibold">スキル検索</span>
           <span class="label-text-alt">
             {localFilters.skills.length > 0 ? `${localFilters.skills.length}個選択中` : ''}
           </span>
@@ -338,7 +340,7 @@
                       type="checkbox" 
                       class="checkbox checkbox-xs"
                       checked={localFilters.skills.includes(skill.id)}
-                      on:change={() => toggleSkill(skill.id)}
+                      onchange={() => toggleSkill(skill.id)}
                     />
                     <span class="label-text ml-2 text-sm">{skill.name}</span>
                   </label>
@@ -351,10 +353,10 @@
 
       <!-- アクションボタン -->
       <div class="card-actions justify-end mt-6 pt-4 border-t border-base-300">
-        <button class="btn btn-ghost" on:click={handleResetFilters}>
+        <button class="btn btn-ghost" onclick={handleResetFilters}>
           リセット
         </button>
-        <button class="btn btn-primary" on:click={applyFilters}>
+        <button class="btn btn-primary" onclick={applyFilters}>
           フィルターを適用
         </button>
       </div>
@@ -370,67 +372,67 @@
     {#if $filters.search?.trim()}
       <div class="badge badge-outline gap-2">
         検索: {$filters.search}
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('search', '')}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('search', '')}>×</button>
       </div>
     {/if}
     
     {#if $filters.departmentId}
       <div class="badge badge-outline gap-2">
         部署: {$departmentList.find(d => d.id === $filters.departmentId)?.name}
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('departmentId', null)}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('departmentId', null)}>×</button>
       </div>
     {/if}
     
     {#if $filters.positionId}
       <div class="badge badge-outline gap-2">
         役職: {$positionList.find(p => p.id === $filters.positionId)?.name}
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('positionId', null)}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('positionId', null)}>×</button>
       </div>
     {/if}
     
     {#if $filters.skills?.length > 0}
       <div class="badge badge-outline gap-2">
         スキル: {$filters.skills.length}個
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('skills', [])}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('skills', [])}>×</button>
       </div>
     {/if}
     
     {#if $filters.contractType?.length > 0}
       <div class="badge badge-outline gap-2">
         雇用形態: {$filters.contractType.length}個
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('contractType', [])}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('contractType', [])}>×</button>
       </div>
     {/if}
     
     {#if $filters.status?.length > 0}
       <div class="badge badge-outline gap-2">
         在籍状況: {$filters.status.length}個
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('status', [])}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('status', [])}>×</button>
       </div>
     {/if}
     
     {#if $filters.workLocation}
       <div class="badge badge-outline gap-2">
         勤務地: {$filters.workLocation}
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('workLocation', null)}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('workLocation', null)}>×</button>
       </div>
     {/if}
     
     {#if $filters.hireYearRange?.start || $filters.hireYearRange?.end}
       <div class="badge badge-outline gap-2">
         入社年: {$filters.hireYearRange.start || ''}〜{$filters.hireYearRange.end || ''}
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('hireYearRange', { start: null, end: null })}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('hireYearRange', { start: null, end: null })}>×</button>
       </div>
     {/if}
     
     {#if $filters.ageRange?.min || $filters.ageRange?.max}
       <div class="badge badge-outline gap-2">
         年齢: {$filters.ageRange.min || ''}〜{$filters.ageRange.max || ''}歳
-        <button class="btn btn-ghost btn-xs" on:click={() => updateFilter('ageRange', { min: null, max: null })}>×</button>
+        <button class="btn btn-ghost btn-xs" onclick={() => updateFilter('ageRange', { min: null, max: null })}>×</button>
       </div>
     {/if}
     
-    <button class="btn btn-ghost btn-xs" on:click={resetFilters}>
+    <button class="btn btn-ghost btn-xs" onclick={resetFilters}>
       すべてクリア
     </button>
   </div>

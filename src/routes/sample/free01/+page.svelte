@@ -20,18 +20,19 @@
 </script>
 
 <div class="form-control">
-  <label class="label">
+  <label for="date-picker" class="label">
     <span class="label-text">日付を選択</span>
   </label>
-  <input 
+  <input
+    id="date-picker" 
     type="text" 
     class="input pika-single"
     placeholder="クリックして日付を選択"
     bind:this={dateInput}
   />
   {#if selectedDate}
-    <label class="label">
+    <div class="label">
       <span class="label-text-alt">選択された日付: {selectedDate}</span>
-    </label>
+    </div>
   {/if}
 </div>

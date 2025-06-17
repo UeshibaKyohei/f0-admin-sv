@@ -128,7 +128,7 @@
     <!-- ページサイズ選択 -->
     <div class="flex items-center gap-2">
       <span class="text-sm text-base-content/70">表示件数:</span>
-      <select class="select select-xs select-bordered" bind:value={$pagination.pageSize} on:change={(e) => setPageSize(Number(e.target.value))}>
+      <select class="select select-xs select-bordered" bind:value={$pagination.pageSize} onchange={(e) => setPageSize(Number(e.target.value))}>
         {#each CONFIG.PAGINATION.PAGE_SIZE_OPTIONS as size}
           <option value={size}>{size}</option>
         {/each}
@@ -149,7 +149,7 @@
                     type="checkbox" 
                     class="checkbox checkbox-sm"
                     checked={isAllSelected}
-                    on:change={toggleSelectAll}
+                    onchange={toggleSelectAll}
                   />
                 </th>
                 <th>社員</th>
@@ -171,7 +171,7 @@
                       type="checkbox" 
                       class="checkbox checkbox-sm"
                       checked={$selectedEmployees.includes(employee.id)}
-                      on:change={() => selectEmployee(employee.id)}
+                      onchange={() => selectEmployee(employee.id)}
                     />
                   </td>
                   <td>
@@ -249,8 +249,9 @@
                     <div class="flex gap-1">
                       <button 
                         class="btn btn-ghost btn-xs"
-                        on:click={() => viewEmployee(employee)}
+                        onclick={() => viewEmployee(employee)}
                         title="詳細表示"
+                        aria-label="詳細表示"
                       >
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
@@ -259,8 +260,9 @@
                       </button>
                       <button 
                         class="btn btn-ghost btn-xs"
-                        on:click={() => editEmployee(employee)}
+                        onclick={() => editEmployee(employee)}
                         title="編集"
+                        aria-label="編集"
                       >
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
@@ -287,17 +289,17 @@
                   type="checkbox" 
                   class="checkbox checkbox-sm"
                   checked={$selectedEmployees.includes(employee.id)}
-                  on:change={() => selectEmployee(employee.id)}
+                  onchange={() => selectEmployee(employee.id)}
                 />
                 <div class="dropdown dropdown-end">
-                  <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
+                  <button class="btn btn-ghost btn-sm btn-circle" aria-label="メニュー">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
                     </svg>
-                  </label>
-                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
-                    <li><button on:click={() => viewEmployee(employee)}>詳細表示</button></li>
-                    <li><button on:click={() => editEmployee(employee)}>編集</button></li>
+                  </button>
+                  <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-32">
+                    <li><button onclick={() => viewEmployee(employee)}>詳細表示</button></li>
+                    <li><button onclick={() => editEmployee(employee)}>編集</button></li>
                   </ul>
                 </div>
               </div>
@@ -386,7 +388,7 @@
           <!-- 前のページ -->
           <button 
             class="join-item btn btn-sm {$paginationInfo.hasPrevious ? '' : 'btn-disabled'}"
-            on:click={() => setCurrentPage($pagination.currentPage - 1)}
+            onclick={() => setCurrentPage($pagination.currentPage - 1)}
             disabled={!$paginationInfo.hasPrevious}
           >
             «
@@ -399,7 +401,7 @@
             {:else}
               <button 
                 class="join-item btn btn-sm {pageNum === $pagination.currentPage ? 'btn-active' : ''}"
-                on:click={() => setCurrentPage(pageNum)}
+                onclick={() => setCurrentPage(pageNum)}
               >
                 {pageNum}
               </button>
@@ -409,7 +411,7 @@
           <!-- 次のページ -->
           <button 
             class="join-item btn btn-sm {$paginationInfo.hasNext ? '' : 'btn-disabled'}"
-            on:click={() => setCurrentPage($pagination.currentPage + 1)}
+            onclick={() => setCurrentPage($pagination.currentPage + 1)}
             disabled={!$paginationInfo.hasNext}
           >
             »
@@ -429,7 +431,7 @@
         <p class="text-base-content/70 mb-4">
           検索条件を変更して再度お試しください
         </p>
-        <button class="btn btn-outline btn-sm" on:click={clearSelection}>
+        <button class="btn btn-outline btn-sm" onclick={clearSelection}>
           フィルターをクリア
         </button>
       </div>

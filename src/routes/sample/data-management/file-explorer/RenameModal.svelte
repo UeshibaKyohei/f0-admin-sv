@@ -81,10 +81,11 @@
     {#if item}
       <form onsubmit={(e) => e.preventDefault()}>
         <div class="form-control">
-          <label class="label">
+          <label for="rename-input" class="label">
             <span class="label-text">新しい名前</span>
           </label>
-          <input 
+          <input
+            id="rename-input" 
             type="text" 
             class="input input-bordered {error ? 'input-error' : ''}"
             bind:value={newName}
@@ -92,9 +93,9 @@
             autofocus
           />
           {#if error}
-            <label class="label">
+            <div class="label">
               <span class="label-text-alt text-error">{error}</span>
-            </label>
+            </div>
           {/if}
         </div>
       </form>

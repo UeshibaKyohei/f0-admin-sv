@@ -99,19 +99,19 @@
         <div class="btn-group">
           <button 
             class="btn btn-sm {viewMode === 'hierarchy' ? 'btn-active' : ''}"
-            on:click={() => viewMode = 'hierarchy'}
+            onclick={() => viewMode = 'hierarchy'}
           >
             階層
           </button>
           <button 
             class="btn btn-sm {viewMode === 'departments' ? 'btn-active' : ''}"
-            on:click={() => viewMode = 'departments'}
+            onclick={() => viewMode = 'departments'}
           >
             部署
           </button>
           <button 
             class="btn btn-sm {viewMode === 'matrix' ? 'btn-active' : ''}"
-            on:click={() => viewMode = 'matrix'}
+            onclick={() => viewMode = 'matrix'}
           >
             マトリックス
           </button>
@@ -140,7 +140,7 @@
               {#each executives as exec}
                 <button 
                   class="flex items-center gap-2 px-3 py-2 bg-white/10 rounded-lg hover:bg-white/20 transition-colors"
-                  on:click={() => openEmployeeModal('view', exec)}
+                  onclick={() => openEmployeeModal('view', exec)}
                 >
                   <div class="avatar avatar-placeholder">
                     <div class="bg-white/20 text-primary-content w-8 h-8 rounded-full">
@@ -174,14 +174,14 @@
                   </div>
                 </div>
                 <div class="dropdown dropdown-end">
-                  <label tabindex="0" class="btn btn-ghost btn-xs">
+                  <button class="btn btn-ghost btn-xs" aria-label="メニュー">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
                     </svg>
-                  </label>
-                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><button on:click={() => handleDepartmentSelect(dept.id)}>メンバー一覧</button></li>
-                    <li><button on:click={() => openEmployeeModal('create', { departmentId: dept.id })}>社員追加</button></li>
+                  </button>
+                  <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                    <li><button onclick={() => handleDepartmentSelect(dept.id)}>メンバー一覧</button></li>
+                    <li><button onclick={() => openEmployeeModal('create', { departmentId: dept.id })}>社員追加</button></li>
                   </ul>
                 </div>
               </div>
@@ -190,7 +190,7 @@
               {#if head}
                 <button 
                   class="flex items-center gap-2 w-full p-2 bg-base-200 rounded-lg mb-3 hover:bg-base-300 transition-colors"
-                  on:click={() => openEmployeeModal('view', head)}
+                  onclick={() => openEmployeeModal('view', head)}
                 >
                   <div class="avatar avatar-placeholder">
                     <div class="bg-primary text-primary-content w-8 h-8 rounded-full">
@@ -213,7 +213,7 @@
                 <div class="space-y-1">
                   <button 
                     class="flex items-center justify-between w-full text-sm text-base-content/70 hover:text-base-content"
-                    on:click={() => toggleDepartment(dept.id)}
+                    onclick={() => toggleDepartment(dept.id)}
                   >
                     <span>下位部署 ({dept.children.length})</span>
                     <svg class="w-4 h-4 transition-transform" class:rotate-180={$expandedDepartments.has(dept.id)}
@@ -228,7 +228,7 @@
                         {@const subCount = employeesByDepartment[subDept.id]?.length || 0}
                         <button 
                           class="w-full text-left p-2 rounded text-sm hover:bg-base-200 transition-colors flex items-center justify-between"
-                          on:click={(e) => showDepartmentMembers(subDept.id, e)}
+                          onclick={(e) => showDepartmentMembers(subDept.id, e)}
                         >
                           <span>{subDept.name}</span>
                           <span class="badge badge-sm badge-ghost">{subCount}</span>
@@ -242,7 +242,7 @@
               <!-- アクションボタン -->
               <button 
                 class="btn btn-sm btn-block mt-3"
-                on:click={() => handleDepartmentSelect(dept.id)}
+                onclick={() => handleDepartmentSelect(dept.id)}
               >
                 メンバー詳細
               </button>
@@ -279,7 +279,7 @@
                     {#if head}
                       <button 
                         class="link link-primary"
-                        on:click={() => openEmployeeModal('view', head)}
+                        onclick={() => openEmployeeModal('view', head)}
                       >
                         {head.lastName} {head.firstName}
                       </button>
@@ -292,7 +292,7 @@
                   <td>
                     <button 
                       class="btn btn-ghost btn-xs"
-                      on:click={() => handleDepartmentSelect(dept.id)}
+                      onclick={() => handleDepartmentSelect(dept.id)}
                     >
                       詳細
                     </button>
@@ -312,7 +312,7 @@
           departmentMap={$departmentMap}
           positionMap={$positionMap}
           employeeSkillMap={$employeeSkillMap}
-          on:openEmployee={(e) => openEmployeeModal('view', e.detail)}
+          onopenEmployee={(e) => openEmployeeModal('view', e.detail)}
         />
       {/if}
 
@@ -326,7 +326,8 @@
             <h4 class="text-lg font-semibold">{dept?.name} のメンバー</h4>
             <button 
               class="btn btn-ghost btn-sm"
-              on:click={() => selectedDepartmentId = null}
+              onclick={() => selectedDepartmentId = null}
+              aria-label="閉じる"
             >
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -338,7 +339,7 @@
             {#each members as member}
               <button 
                 class="flex items-center gap-3 p-3 rounded-lg border border-base-300 hover:border-primary hover:bg-base-50 transition-all text-left"
-                on:click={() => openEmployeeModal('view', member)}
+                onclick={() => openEmployeeModal('view', member)}
               >
                 <div class="avatar avatar-placeholder">
                   <div class="bg-neutral text-neutral-content w-10 h-10 rounded-full">

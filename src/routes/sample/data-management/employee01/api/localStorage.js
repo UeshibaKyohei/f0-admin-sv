@@ -12,6 +12,11 @@ const STORAGE_KEYS = {
 // データの保存
 export function saveToLocalStorage(key, data) {
   try {
+    // ブラウザ環境チェック
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return false;
+    }
+    
     // 日付オブジェクトをシリアライズ
     const serializedData = JSON.stringify(data, (key, value) => {
       if (value instanceof Date) {
@@ -30,6 +35,11 @@ export function saveToLocalStorage(key, data) {
 // データの読み込み
 export function loadFromLocalStorage(key) {
   try {
+    // ブラウザ環境チェック
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return null;
+    }
+    
     const data = localStorage.getItem(key);
     if (!data) return null;
     

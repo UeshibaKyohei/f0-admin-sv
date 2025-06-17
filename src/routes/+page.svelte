@@ -95,7 +95,7 @@
 								<p class="text-sm font-medium truncate">注文 #2024-{String(item).padStart(3, '0')} が処理されました</p>
 								<p class="text-xs text-base-content/60">{item}分前</p>
 							</div>
-							<button class="btn btn-ghost btn-xs btn-square">
+							<button class="btn btn-ghost btn-xs btn-square" aria-label="詳細を表示">
 								<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 								</svg>

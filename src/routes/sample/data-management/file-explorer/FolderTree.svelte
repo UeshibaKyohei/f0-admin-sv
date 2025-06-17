@@ -60,6 +60,7 @@
           <button
             class="p-1 hover:bg-base-200 rounded"
             onclick={() => toggleFolder(folder.path)}
+            aria-label={expandedFolders.has(folder.path) ? 'フォルダを閉じる' : 'フォルダを開く'}
           >
             <svg 
               class="w-4 h-4 transition-transform {expandedFolders.has(folder.path) ? 'rotate-90' : ''}" 
@@ -92,6 +93,7 @@
                 <button
                   class="p-1 hover:bg-base-200 rounded"
                   onclick={() => toggleFolder(child.path)}
+                  aria-label={expandedFolders.has(child.path) ? 'フォルダを閉じる' : 'フォルダを開く'}
                 >
                   <svg 
                     class="w-4 h-4 transition-transform {expandedFolders.has(child.path) ? 'rotate-90' : ''}" 

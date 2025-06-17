@@ -63,6 +63,8 @@
       ondrop={handleDrop}
       ondragover={handleDragOver}
       ondragleave={handleDragLeave}
+      role="region"
+      aria-label="ファイルアップロードエリア"
     >
       <svg class="w-12 h-12 mx-auto mb-4 text-base-content/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
@@ -98,6 +100,7 @@
             <button 
               class="btn btn-ghost btn-sm btn-circle"
               onclick={() => removeFile(index)}
+              aria-label="ファイルを削除"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>

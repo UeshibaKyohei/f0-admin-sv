@@ -77,12 +77,12 @@
               <!-- アクションボタン -->
               <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <div class="dropdown dropdown-end">
-                  <label tabindex="0" class="btn btn-ghost btn-xs btn-square">
+                  <button class="btn btn-ghost btn-xs btn-square" aria-label="会話オプション">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
                     </svg>
-                  </label>
-                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                  </button>
+                  <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                     <li><button onclick={() => togglePinConversation(conversation.id)}>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -142,12 +142,12 @@
               <!-- アクションボタン -->
               <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                 <div class="dropdown dropdown-end">
-                  <label tabindex="0" class="btn btn-ghost btn-xs btn-square">
+                  <button class="btn btn-ghost btn-xs btn-square" aria-label="会話オプション">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
                     </svg>
-                  </label>
-                  <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                  </button>
+                  <ul class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                     <li><button onclick={() => togglePinConversation(conversation.id)}>
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.625c0-2.485-2.015-4.5-4.5-4.5s-4.5 2.015-4.5 4.5m0 0V21m0-12.375c0-2.485-2.015-4.5-4.5-4.5S3 6.14 3 8.625m9 12.375H4.5m15 0H12" />

@@ -174,39 +174,39 @@
 						<div class="md:w-3/4">
 							<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 								<div class="form-control">
-									<!-- svelte-ignore a11y_label_has_associated_control -->
-									<label class="label">
+									<label for="user-name" class="label">
 										<span class="label-text">名前</span>
 									</label>
-									<input type="text" class="input input-bordered" bind:value={userProfile.name} />
+									<input id="user-name" type="text" class="input input-bordered" bind:value={userProfile.name} />
 								</div>
 								<div class="form-control">
-									<label class="label">
+									<label for="user-email" class="label">
 										<span class="label-text">メールアドレス</span>
 									</label>
-									<input type="email" class="input input-bordered" bind:value={userProfile.email} />
+									<input id="user-email" type="email" class="input input-bordered" bind:value={userProfile.email} />
 								</div>
 								<div class="form-control">
-									<label class="label">
+									<label for="user-department" class="label">
 										<span class="label-text">部署</span>
 									</label>
 									<input
+										id="user-department"
 										type="text"
 										class="input input-bordered"
 										bind:value={userProfile.department}
 									/>
 								</div>
 								<div class="form-control">
-									<label class="label">
+									<label for="user-phone" class="label">
 										<span class="label-text">電話番号</span>
 									</label>
-									<input type="tel" class="input input-bordered" bind:value={userProfile.phone} />
+									<input id="user-phone" type="tel" class="input input-bordered" bind:value={userProfile.phone} />
 								</div>
 								<div class="form-control">
-									<label class="label">
+									<label for="user-language" class="label">
 										<span class="label-text">言語</span>
 									</label>
-									<select class="select select-bordered" bind:value={userProfile.language}>
+									<select id="user-language" class="select select-bordered" bind:value={userProfile.language}>
 										<option value="ja">日本語</option>
 										<option value="en">English</option>
 										<option value="zh">中文</option>
@@ -214,10 +214,10 @@
 									</select>
 								</div>
 								<div class="form-control">
-									<label class="label">
+									<label for="user-timezone" class="label">
 										<span class="label-text">タイムゾーン</span>
 									</label>
-									<select class="select select-bordered" bind:value={userProfile.timezone}>
+									<select id="user-timezone" class="select select-bordered" bind:value={userProfile.timezone}>
 										<option value="Asia/Tokyo">Asia/Tokyo (GMT+9:00)</option>
 										<option value="America/Los_Angeles">America/Los_Angeles (GMT-7:00)</option>
 										<option value="Europe/London">Europe/London (GMT+0:00)</option>
@@ -237,10 +237,10 @@
 			{#if activeTab === 'app'}
 				<form onsubmit={handleSubmit} class="space-y-6">
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-						<div class="form-control">
-							<label class="label cursor-pointer justify-start gap-3">
+						<fieldset class="form-control">
+							<legend class="label">
 								<span class="label-text">テーマ</span>
-							</label>
+							</legend>
 							<div class="mt-2 flex gap-3">
 								<label class="flex cursor-pointer items-center gap-2">
 									<input
@@ -273,12 +273,12 @@
 									<span>システム設定に合わせる</span>
 								</label>
 							</div>
-						</div>
+						</fieldset>
 
-						<div class="form-control">
-							<label class="label cursor-pointer justify-start gap-3">
+						<fieldset class="form-control">
+							<legend class="label">
 								<span class="label-text">フォントサイズ</span>
-							</label>
+							</legend>
 							<div class="mt-2 flex gap-3">
 								<label class="flex cursor-pointer items-center gap-2">
 									<input
@@ -311,7 +311,7 @@
 									<span>大</span>
 								</label>
 							</div>
-						</div>
+						</fieldset>
 
 						<div class="form-control">
 							<label class="label cursor-pointer justify-start gap-3">
@@ -358,10 +358,10 @@
 						</div>
 
 						<div class="form-control">
-							<label class="label">
+							<label for="items-per-page" class="label">
 								<span class="label-text">1ページあたりの表示件数</span>
 							</label>
-							<select class="select select-bordered" bind:value={appSettings.itemsPerPage}>
+							<select id="items-per-page" class="select select-bordered" bind:value={appSettings.itemsPerPage}>
 								<option value={5}>5件</option>
 								<option value={10}>10件</option>
 								<option value={25}>25件</option>
@@ -464,10 +464,10 @@
 						</div>
 
 						<div class="form-control">
-							<label class="label">
+							<label for="email-digest" class="label">
 								<span class="label-text">メールダイジェスト</span>
 							</label>
-							<select class="select select-bordered" bind:value={notificationSettings.emailDigest}>
+							<select id="email-digest" class="select select-bordered" bind:value={notificationSettings.emailDigest}>
 								<option value="never">送信しない</option>
 								<option value="daily">毎日</option>
 								<option value="weekly">毎週</option>
@@ -516,10 +516,10 @@
 							</div>
 
 							<div class="form-control">
-								<label class="label">
+								<label for="session-timeout" class="label">
 									<span class="label-text">セッションタイムアウト（分）</span>
 								</label>
-								<select class="select select-bordered" bind:value={securitySettings.sessionTimeout}>
+								<select id="session-timeout" class="select select-bordered" bind:value={securitySettings.sessionTimeout}>
 									<option value={15}>15分</option>
 									<option value={30}>30分</option>
 									<option value={60}>1時間</option>
@@ -529,9 +529,9 @@
 							</div>
 
 							<div class="form-control">
-								<label class="label">
+								<div class="label">
 									<span class="label-text">最終パスワード変更日</span>
-								</label>
+								</div>
 								<div class="input input-bordered flex items-center">
 									<span>{formatDate(securitySettings.lastPasswordChange).split(' ')[0]}</span>
 								</div>
@@ -717,7 +717,7 @@
 						<h3 class="mb-4 text-lg font-medium">APIドキュメント</h3>
 						<p class="mb-4">APIの使用方法については、以下のドキュメントを参照してください。</p>
 						<div class="flex flex-col gap-3 sm:flex-row">
-							<a href="#" class="btn btn-outline">
+							<button type="button" class="btn btn-outline" onclick={() => console.log('APIドキュメントを開く')}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									class="mr-2 h-5 w-5"
@@ -733,8 +733,8 @@
 									/>
 								</svg>
 								APIドキュメント
-							</a>
-							<a href="#" class="btn btn-outline">
+							</button>
+							<button type="button" class="btn btn-outline" onclick={() => console.log('APIドキュメントを開く')}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									class="mr-2 h-5 w-5"
@@ -750,7 +750,7 @@
 									/>
 								</svg>
 								コードサンプル
-							</a>
+							</button>
 						</div>
 					</div>
 				</div>

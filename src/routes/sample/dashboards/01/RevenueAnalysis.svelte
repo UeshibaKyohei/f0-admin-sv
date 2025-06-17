@@ -177,7 +177,7 @@
 	<div class="p-4 pb-2">
 		<div class="mb-1 flex items-center justify-between">
 			<h3 class="text-base font-semibold">売上・利益推移</h3>
-			<button class="btn btn-ghost btn-xs">
+			<button class="btn btn-ghost btn-xs" aria-label="その他のオプション">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"

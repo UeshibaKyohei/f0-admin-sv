@@ -97,7 +97,7 @@
       <div class="card-body p-4">
         <button 
           class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-          on:click={() => toggleSection('basic')}
+          onclick={() => toggleSection('basic')}
         >
           <h3 class="text-base font-semibold text-base-content">基本統計</h3>
           <svg class="w-4 h-4 transition-transform {openSections.basic ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -155,7 +155,7 @@
       <div class="card-body p-4">
         <button 
           class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-          on:click={() => toggleSection('contract')}
+          onclick={() => toggleSection('contract')}
         >
           <h3 class="text-base font-semibold text-base-content">雇用形態分布</h3>
           <svg class="w-4 h-4 transition-transform {openSections.contract ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -195,7 +195,7 @@
       <div class="card-body p-4">
         <button 
           class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-          on:click={() => toggleSection('department')}
+          onclick={() => toggleSection('department')}
         >
           <h3 class="text-base font-semibold text-base-content">部署別社員数</h3>
           <svg class="w-4 h-4 transition-transform {openSections.department ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -243,7 +243,7 @@
       <div class="card-body p-4">
         <button 
           class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-          on:click={() => toggleSection('position')}
+          onclick={() => toggleSection('position')}
         >
           <h3 class="text-base font-semibold text-base-content">役職別分布</h3>
           <svg class="w-4 h-4 transition-transform {openSections.position ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -288,7 +288,7 @@
       <div class="card-body p-4">
         <button 
           class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-          on:click={() => toggleSection('skill')}
+          onclick={() => toggleSection('skill')}
         >
           <h3 class="text-base font-semibold text-base-content">人気スキル</h3>
           <svg class="w-4 h-4 transition-transform {openSections.skill ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -336,7 +336,7 @@
       <div class="card-body p-4">
         <button 
           class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-          on:click={() => toggleSection('organization')}
+          onclick={() => toggleSection('organization')}
         >
           <h3 class="text-base font-semibold text-base-content">組織構造</h3>
           <svg class="w-4 h-4 transition-transform {openSections.organization ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -374,7 +374,7 @@
       <div class="card-body p-4">
         <button 
           class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-          on:click={() => toggleSection('quickAction')}
+          onclick={() => toggleSection('quickAction')}
         >
           <h3 class="text-base font-semibold text-base-content">クイックアクション</h3>
           <svg class="w-4 h-4 transition-transform {openSections.quickAction ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -416,7 +416,7 @@
         <div class="card-body p-4">
           <button 
             class="flex items-center justify-between w-full text-left hover:bg-base-50 rounded-lg p-2 -m-2 transition-colors"
-            on:click={() => toggleSection('mockData')}
+            onclick={() => toggleSection('mockData')}
           >
             <h3 class="text-base font-semibold text-warning">モックデータ管理</h3>
             <svg class="w-4 h-4 transition-transform {openSections.mockData ? 'rotate-180' : ''}" fill="currentColor" viewBox="0 0 20 20">
@@ -435,7 +435,7 @@
               
               <button 
                 class="btn btn-warning btn-sm w-full"
-                on:click={handleResetMockData}
+                onclick={handleResetMockData}
               >
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>

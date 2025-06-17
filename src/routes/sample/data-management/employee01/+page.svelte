@@ -183,7 +183,7 @@
               <div class="tabs tabs-boxed">
                 <button 
                   class="tab {$viewMode === 'list' || $viewMode === 'grid' ? 'tab-active' : ''}"
-                  on:click={() => handleViewModeChange('list')}
+                  onclick={() => handleViewModeChange('list')}
                 >
                   <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM9 16h6a2 2 0 002-2v-1a3 3 0 00-3-3H6a3 3 0 00-3 3v1a2 2 0 002 2h3z"></path>
@@ -192,7 +192,7 @@
                 </button>
                 <button 
                   class="tab {$viewMode === 'org_chart' ? 'tab-active' : ''}"
-                  on:click={() => handleViewModeChange('org_chart')}
+                  onclick={() => handleViewModeChange('org_chart')}
                 >
                   <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 4a1 1 0 000 2h6a1 1 0 100-2H7zM7 8a1 1 0 000 2h6a1 1 0 100-2H7zM7 12a1 1 0 000 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
@@ -201,7 +201,7 @@
                 </button>
                 <button 
                   class="tab {$viewMode === 'skill_matrix' ? 'tab-active' : ''}"
-                  on:click={() => handleViewModeChange('skill_matrix')}
+                  onclick={() => handleViewModeChange('skill_matrix')}
                 >
                   <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"></path>
@@ -215,7 +215,8 @@
                 <div class="btn-group">
                   <button 
                     class="btn btn-sm {$viewMode === 'list' ? 'btn-active' : 'btn-ghost'}"
-                    on:click={() => handleViewModeChange('list')}
+                    onclick={() => handleViewModeChange('list')}
+                    aria-label="リスト表示"
                   >
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -223,7 +224,8 @@
                   </button>
                   <button 
                     class="btn btn-sm {$viewMode === 'grid' ? 'btn-active' : 'btn-ghost'}"
-                    on:click={() => handleViewModeChange('grid')}
+                    onclick={() => handleViewModeChange('grid')}
+                    aria-label="グリッド表示"
                   >
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
@@ -239,13 +241,13 @@
                 <!-- 一括操作（選択時のみ表示） -->
                 {#if $uiState.hasSelections}
                   <div class="join">
-                    <button class="btn btn-error btn-sm join-item" on:click={handleBulkDelete}>
+                    <button class="btn btn-error btn-sm join-item" onclick={handleBulkDelete}>
                       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                       </svg>
                       削除 ({$selectedEmployees.length})
                     </button>
-                    <button class="btn btn-success btn-sm join-item" on:click={handleBulkExport}>
+                    <button class="btn btn-success btn-sm join-item" onclick={handleBulkExport}>
                       <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                       </svg>
@@ -255,7 +257,7 @@
                 {/if}
 
                 <!-- 通常操作 -->
-                <button class="btn btn-primary btn-sm" on:click={handleCreateEmployee}>
+                <button class="btn btn-primary btn-sm" onclick={handleCreateEmployee}>
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
                   </svg>
@@ -303,7 +305,7 @@
           <span>{notification.message}</span>
           <button 
             class="btn btn-sm btn-circle btn-ghost"
-            on:click={() => removeNotification(notification.id)}
+            onclick={() => removeNotification(notification.id)}
           >
             ✕
           </button>
@@ -319,9 +321,6 @@
 <style>
   /* レスポンシブ対応 */
   @media (max-width: 1280px) {
-    .xl\:col-span-5 .xl\:col-span-4 .xl\:col-span-1 {
-      grid-column: span 1;
-    }
   }
   
   /* スムーズなトランジション */

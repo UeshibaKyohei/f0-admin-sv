@@ -239,6 +239,8 @@
         ondragover={handleDragOver}
         ondragleave={handleDragLeave}
         ondrop={handleDrop}
+        role="region"
+        aria-label="ファイルリスト"
       >
         <FileList 
           files={currentFiles}
