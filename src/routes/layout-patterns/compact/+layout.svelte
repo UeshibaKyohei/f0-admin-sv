@@ -1,21 +1,12 @@
 <script lang="ts">
-	import '../app.css';
-	import IntegratedHeader from './IntegratedHeader.svelte';
-	import CompactNav from './CompactNav.svelte';
-	import Toast from '$lib/components/Toast.svelte';
-	import {
-		theme,
-		availableThemes,
-		themeColors,
-		setTheme,
-		getThemeDisplayName,
-		getCurrentThemeInfo
-	} from '$lib/stores/theme.js';
-	import { onMount } from 'svelte';
+	import '../../../app.css';
+	import IntegratedHeader from '../../IntegratedHeader.svelte';
+	import CompactNav from '../../CompactNav.svelte';
 	import { browser } from '$app/environment';
 
 	let { children } = $props();
 	let navExpanded = $state(false);
+	let activeView = $state('grid');
 	let showCommandPalette = $state(false);
 
 	// キーボードショートカット
@@ -36,17 +27,17 @@
 	});
 </script>
 
-<div class="min-h-screen bg-base-200 flex overflow-hidden">
+<div class="min-h-screen bg-base-200 flex">
 	<!-- コンパクトナビゲーション -->
 	<CompactNav bind:expanded={navExpanded} />
 
 	<!-- メインエリア -->
-	<div class="flex-1 flex flex-col h-screen overflow-hidden relative z-10">
-		<!-- 統合ヘッダー (固定) -->
-		<IntegratedHeader bind:showCommandPalette />
+	<div class="flex-1 flex flex-col">
+		<!-- 統合ヘッダー -->
+		<IntegratedHeader bind:showCommandPalette bind:activeView />
 
-		<!-- コンテンツ (スクロール可能) -->
-		<main class="flex-1 overflow-y-auto">
+		<!-- コンテンツ -->
+		<main class="flex-1 overflow-auto">
 			<div class="p-4 lg:p-6">
 				<div class="max-w-[1400px] mx-auto">
 					{@render children()}
@@ -111,7 +102,6 @@
 		</div>
 	</div>
 {/if}
-
 
 <style>
 	:global(body) {
