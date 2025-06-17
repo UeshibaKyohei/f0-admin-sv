@@ -87,9 +87,9 @@
 				},
 				{
 					type: 'submenu',
-					text: '汎用系データコントロール',
+					text: 'インスピレーション',
 					path: '/sample/data-management',
-					icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
+					icon: 'M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0',
 					children: [
 						{
 							type: 'link',
@@ -115,13 +115,37 @@
 							path: '/sample/data-management/zaiko',
 							icon: 'M3 7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'
 						},
+						{
+							type: 'link',
+							text: 'CRM(顧客関係管理)',
+							path: '/sample/data-management/crm',
+							icon: 'M3 7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'
+						},
+						{
+							type: 'link',
+							text: '社内会議室予約',
+							path: '/sample/data-management/meeting-rooms',
+							icon: 'M3 7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'
+						},
+						{
+							type: 'link',
+							text: 'クリニック予約',
+							path: '/sample/data-management/yoyaku-clinic',
+							icon: 'M3 7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'
+						},
+						{
+							type: 'link',
+							text: 'タスク管理',
+							path: '/sample/data-management/tasklist',
+							icon: 'M3 7a2 2 0 0 1 2-2h3l2 2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'
+						},
 					]
 				},
 				{
 					type: 'submenu',
 					text: '特殊系画面',
 					path: '/sample/special',
-					icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z',
+					icon: 'M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14',
 					children: [
 						{
 							type: 'link',

@@ -83,7 +83,8 @@
 	let activeTab = $state('profile');
 
 	// フォーム送信処理
-	function handleSubmit() {
+	function handleSubmit(event) {
+		event.preventDefault();
 		// 実際のアプリケーションではAPIリクエストなどを行う
 		alert('設定が保存されました');
 	}
@@ -112,31 +113,31 @@
 			<div class="tabs tabs-boxed bg-base-200 mb-6 p-1">
 				<button
 					class={`tab ${activeTab === 'profile' ? 'tab-active' : ''}`}
-					on:click={() => (activeTab = 'profile')}
+					onclick={() => (activeTab = 'profile')}
 				>
 					プロフィール
 				</button>
 				<button
 					class={`tab ${activeTab === 'app' ? 'tab-active' : ''}`}
-					on:click={() => (activeTab = 'app')}
+					onclick={() => (activeTab = 'app')}
 				>
 					アプリケーション
 				</button>
 				<button
 					class={`tab ${activeTab === 'notifications' ? 'tab-active' : ''}`}
-					on:click={() => (activeTab = 'notifications')}
+					onclick={() => (activeTab = 'notifications')}
 				>
 					通知
 				</button>
 				<button
 					class={`tab ${activeTab === 'security' ? 'tab-active' : ''}`}
-					on:click={() => (activeTab = 'security')}
+					onclick={() => (activeTab = 'security')}
 				>
 					セキュリティ
 				</button>
 				<button
 					class={`tab ${activeTab === 'api' ? 'tab-active' : ''}`}
-					on:click={() => (activeTab = 'api')}
+					onclick={() => (activeTab = 'api')}
 				>
 					API
 				</button>
@@ -144,7 +145,7 @@
 
 			<!-- プロフィール設定 -->
 			{#if activeTab === 'profile'}
-				<form on:submit|preventDefault={handleSubmit} class="space-y-6">
+				<form onsubmit={handleSubmit} class="space-y-6">
 					<div class="flex flex-col gap-8 md:flex-row">
 						<div class="flex flex-col items-center md:w-1/4">
 							<div class="avatar placeholder">
@@ -234,7 +235,7 @@
 
 			<!-- アプリケーション設定 -->
 			{#if activeTab === 'app'}
-				<form on:submit|preventDefault={handleSubmit} class="space-y-6">
+				<form onsubmit={handleSubmit} class="space-y-6">
 					<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
 						<div class="form-control">
 							<label class="label cursor-pointer justify-start gap-3">
@@ -247,7 +248,7 @@
 										name="theme"
 										class="radio radio-primary"
 										checked={appSettings.theme === 'light'}
-										on:change={() => (appSettings.theme = 'light')}
+										onchange={() => (appSettings.theme = 'light')}
 									/>
 									<span>ライト</span>
 								</label>
@@ -257,7 +258,7 @@
 										name="theme"
 										class="radio radio-primary"
 										checked={appSettings.theme === 'dark'}
-										on:change={() => (appSettings.theme = 'dark')}
+										onchange={() => (appSettings.theme = 'dark')}
 									/>
 									<span>ダーク</span>
 								</label>
@@ -267,7 +268,7 @@
 										name="theme"
 										class="radio radio-primary"
 										checked={appSettings.theme === 'system'}
-										on:change={() => (appSettings.theme = 'system')}
+										onchange={() => (appSettings.theme = 'system')}
 									/>
 									<span>システム設定に合わせる</span>
 								</label>
@@ -285,7 +286,7 @@
 										name="fontScale"
 										class="radio radio-primary"
 										checked={appSettings.fontScale === 'small'}
-										on:change={() => (appSettings.fontScale = 'small')}
+										onchange={() => (appSettings.fontScale = 'small')}
 									/>
 									<span>小</span>
 								</label>
@@ -295,7 +296,7 @@
 										name="fontScale"
 										class="radio radio-primary"
 										checked={appSettings.fontScale === 'medium'}
-										on:change={() => (appSettings.fontScale = 'medium')}
+										onchange={() => (appSettings.fontScale = 'medium')}
 									/>
 									<span>中</span>
 								</label>
@@ -305,7 +306,7 @@
 										name="fontScale"
 										class="radio radio-primary"
 										checked={appSettings.fontScale === 'large'}
-										on:change={() => (appSettings.fontScale = 'large')}
+										onchange={() => (appSettings.fontScale = 'large')}
 									/>
 									<span>大</span>
 								</label>
@@ -377,7 +378,7 @@
 
 			<!-- 通知設定 -->
 			{#if activeTab === 'notifications'}
-				<form on:submit|preventDefault={handleSubmit} class="space-y-6">
+				<form onsubmit={handleSubmit} class="space-y-6">
 					<h3 class="mb-4 text-lg font-medium">通知方法</h3>
 					<div class="grid grid-cols-1 gap-4 md:grid-cols-3">
 						<div class="form-control">
